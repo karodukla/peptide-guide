@@ -1,1 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peptide Reference Guide</title>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
 
+  <template id="__bundler_thumbnail" data-bg-color="#050c1a">
+    <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background -->
+      <rect width="800" height="500" fill="#050c1a"/>
+      <!-- Grid lines -->
+      <line x1="0" y1="125" x2="800" y2="125" stroke="rgba(200,153,42,0.08)" stroke-width="1"/>
+      <line x1="0" y1="250" x2="800" y2="250" stroke="rgba(200,153,42,0.08)" stroke-width="1"/>
+      <line x1="0" y1="375" x2="800" y2="375" stroke="rgba(200,153,42,0.08)" stroke-width="1"/>
+      <line x1="200" y1="0" x2="200" y2="500" stroke="rgba(200,153,42,0.08)" stroke-width="1"/>
+      <line x1="400" y1="0" x2="400" y2="500" stroke="rgba(200,153,42,0.08)" stroke-width="1"/>
+      <line x1="600" y1="0" x2="600" y2="500" stroke="rgba(200,153,42,0.08)" stroke-width="1"/>
+      <!-- Title bar -->
+      <rect x="200" y="60" width="400" height="4" rx="2" fill="#c8992a" opacity="0.7"/>
+      <rect x="260" y="80" width="280" height="16" rx="3" fill="rgba(255,255,255,0.12)"/>
+      <rect x="300" y="106" width="200" height="10" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <!-- Cards -->
+      <rect x="60" y="160" width="200" height="130" rx="10" fill="#0c1c35" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="60" y="160" width="200" height="3" rx="1" fill="#3abf8e"/>
+      <rect x="76" y="178" width="80" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <rect x="76" y="196" width="140" height="6" rx="2" fill="rgba(255,255,255,0.07)"/>
+      <rect x="76" y="212" width="120" height="5" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <rect x="76" y="224" width="100" height="5" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <rect x="60" y="263" width="200" height="1" fill="rgba(255,255,255,0.05)"/>
+      <rect x="76" y="274" width="60" height="6" rx="2" fill="rgba(200,153,42,0.3)"/>
+
+      <rect x="300" y="160" width="200" height="130" rx="10" fill="#0c1c35" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="300" y="160" width="200" height="3" rx="1" fill="#3a9ee0"/>
+      <rect x="316" y="178" width="80" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <rect x="316" y="196" width="140" height="6" rx="2" fill="rgba(255,255,255,0.07)"/>
+      <rect x="316" y="212" width="120" height="5" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <rect x="316" y="224" width="100" height="5" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <rect x="300" y="263" width="200" height="1" fill="rgba(255,255,255,0.05)"/>
+      <rect x="316" y="274" width="60" height="6" rx="2" fill="rgba(200,153,42,0.3)"/>
+
+      <rect x="540" y="160" width="200" height="130" rx="10" fill="#0c1c35" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="540" y="160" width="200" height="3" rx="1" fill="#b06be0"/>
+      <rect x="556" y="178" width="80" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <rect x="556" y="196" width="140" height="6" rx="2" fill="rgba(255,255,255,0.07)"/>
+      <rect x="556" y="212" width="120" height="5" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <rect x="556" y="224" width="100" height="5" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <rect x="540" y="263" width="200" height="1" fill="rgba(255,255,255,0.05)"/>
+      <rect x="556" y="274" width="60" height="6" rx="2" fill="rgba(200,153,42,0.3)"/>
+
+      <!-- Gold accent line -->
+      <rect x="60" y="330" width="680" height="1" fill="rgba(200,153,42,0.15)"/>
+      <!-- Filter pills -->
+      <rect x="140" y="348" width="70" height="18" rx="9" fill="rgba(200,153,42,0.15)" stroke="rgba(200,153,42,0.3)" stroke-width="1"/>
+      <rect x="222" y="348" width="60" height="18" rx="9" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <rect x="294" y="348" width="60" height="18" rx="9" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <rect x="366" y="348" width="70" height="18" rx="9" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <rect x="448" y="348" width="80" height="18" rx="9" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <rect x="540" y="348" width="60" height="18" rx="9" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    </svg>
+  </template>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-950: #050c1a;
+      --navy-900: #0a1628;
+      --navy-800: #0f2044;
+      --navy-700: #152a5a;
+      --navy-600: #1d3872;
+      --navy-400: #3a5fa0;
+      --navy-200: #8fadd8;
+      --navy-100: #c4d4ef;
+      --navy-50:  #eef2fa;
+
+      --gold-500: #c8992a;
+      --gold-400: #d4aa45;
+      --gold-300: #e0c060;
+      --gold-200: #ecda9e;
+      --gold-100: #f7f0d8;
+
+      --white: #ffffff;
+      --text-primary: #e8edf7;
+      --text-secondary: #9eb3d0;
+      --text-muted: #5a7499;
+
+      --cat-metabolic:#1ecfb0;
+      --cat-fat:     #e05a3a;
+      --cat-muscle:  #3a9ee0;
+      --cat-recovery:#3abf8e;
+      --cat-aging:   #b06be0;
+      --cat-cognitive:#e0b43a;
+      --cat-sleep:   #7b8cde;
+
+      --radius-card: 14px;
+      --radius-badge: 6px;
+      --shadow-card: 0 4px 32px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3);
+      --shadow-hover: 0 8px 48px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy-950);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #root { min-height: 100vh; }
+
+    /* ── Mobile responsive overrides ── */
+    @media (max-width: 640px) {
+      .filter-bar {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        justify-content: flex-start !important;
+        padding: 0 16px 12px !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .filter-bar::-webkit-scrollbar { display: none; }
+      .filter-bar button { flex-shrink: 0 !important; }
+      .card-grid { grid-template-columns: 1fr !important; }
+      .stacking-grid { grid-template-columns: 1fr !important; }
+      .timing-grid { grid-template-columns: 1fr !important; }
+      .dosage-grid { grid-template-columns: 1fr !important; }
+      .half-storage-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+/* ── useIsMobile hook ─────────────────────────────────── */
+function useIsMobile() {
+  const [mobile, setMobile] = useState(() => window.innerWidth <= 640);
+  useEffect(() => {
+    const handler = () => setMobile(window.innerWidth <= 640);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return mobile;
+}
+
+/* ── Peptide Data ─────────────────────────────────────── */
+const PEPTIDES = [
+  {
+    id: "bpc157",
+    name: "BPC-157",
+    fullName: "Body Protection Compound 157",
+    categories: ["recovery"],
+    tagline: "The Wolverine peptide for tissue repair",
+    benefits: [
+      "Accelerates tendon & ligament healing",
+      "Reduces inflammation systemically",
+      "Supports gut lining integrity",
+      "Promotes angiogenesis (new blood vessels)"
+    ],
+    dosage: {
+      typical: "200–400 mcg/day",
+      frequency: "Once or twice daily",
+      method: "Subcutaneous or IM injection",
+      cycle: "4–6 weeks on, 2–4 weeks off"
+    },
+    sideEffects: ["Nausea (rare)", "Dizziness on injection", "Mild fatigue initially"],
+    mechanism: "Upregulates growth hormone receptors; modulates NO system; stabilizes gut barrier via SOD2 pathway.",
+    halfLife: "~4 hours",
+    storage: "Lyophilized: room temp. Reconstituted: 2–8°C, use within 30 days.",
+    warnings: ["angiogenesis"]
+  },
+  {
+    id: "tb500",
+    name: "TB-500",
+    fullName: "Thymosin Beta-4",
+    categories: ["recovery", "muscle"],
+    tagline: "Systemic healing & regeneration",
+    benefits: [
+      "Dramatically accelerates wound healing",
+      "Reduces fibrous scar tissue",
+      "Promotes satellite cell activation",
+      "Anti-inflammatory at injury sites"
+    ],
+    dosage: {
+      typical: "2–2.5 mg twice/week",
+      frequency: "2× weekly (loading), then 1× weekly",
+      method: "Subcutaneous injection",
+      cycle: "4–6 weeks loading, monthly maintenance"
+    },
+    sideEffects: ["Fatigue after injection", "Temporary headache", "Slight nausea"],
+    mechanism: "Binds G-actin to regulate actin polymerization; activates AKT signaling for cell migration and proliferation.",
+    halfLife: "~30–40 minutes (active fragment longer)",
+    storage: "Lyophilized: 2–8°C. Reconstituted: 2–8°C, use within 30 days.",
+    warnings: ["angiogenesis"]
+  },
+  {
+    id: "cjc1295",
+    name: "CJC-1295",
+    fullName: "CJC-1295 with DAC",
+    categories: ["muscle", "fat"],
+    tagline: "Long-acting GH release amplifier",
+    benefits: [
+      "Sustained GH pulse elevation",
+      "Increased IGF-1 production",
+      "Enhanced lean muscle accretion",
+      "Accelerated fat oxidation"
+    ],
+    dosage: {
+      typical: "1–2 mg/week",
+      frequency: "Once weekly (with DAC)",
+      method: "Subcutaneous injection",
+      cycle: "8–12 weeks, 4–6 weeks off"
+    },
+    sideEffects: ["Water retention", "Injection site redness", "Tingling/numbness", "Fatigue"],
+    mechanism: "Modified GHRH analogue with Drug Affinity Complex — binds serum albumin for extended half-life, providing sustained GHRH receptor stimulation.",
+    halfLife: "~6–8 days (with DAC)",
+    storage: "Lyophilized: room temp. Reconstituted: 2–8°C, 30 days.",
+    warnings: ["gh_stimulating"]
+  },
+  {
+    id: "ipamorelin",
+    name: "Ipamorelin",
+    fullName: "Ipamorelin",
+    categories: ["muscle", "fat", "aging"],
+    tagline: "Clean GH secretagogue, minimal sides",
+    benefits: [
+      "Selective GH release — no cortisol spike",
+      "Improved body composition",
+      "Enhanced sleep quality",
+      "Mild anti-aging systemic effects"
+    ],
+    dosage: {
+      typical: "200–300 mcg/dose",
+      frequency: "2–3× daily or pre-sleep",
+      method: "Subcutaneous injection",
+      cycle: "8–12 weeks on, 4 weeks off"
+    },
+    sideEffects: ["Mild headache", "Flushing", "Water retention at higher doses"],
+    mechanism: "Ghrelin receptor agonist (GHS-R1a); selectively stimulates pituitary GH release without affecting cortisol, prolactin, or ACTH.",
+    halfLife: "~2 hours",
+    storage: "Lyophilized: room temp. Reconstituted: 2–8°C, 30 days."
+  },
+  {
+    id: "sermorelin",
+    name: "Sermorelin",
+    fullName: "Sermorelin Acetate",
+    categories: ["aging", "muscle"],
+    tagline: "Natural GH axis restoration",
+    benefits: [
+      "Restores youthful GH pulsatility",
+      "Improves sleep architecture",
+      "Increases bone mineral density",
+      "Enhanced skin quality & collagen"
+    ],
+    dosage: {
+      typical: "0.2–0.3 mg/night",
+      frequency: "Once daily (pre-sleep)",
+      method: "Subcutaneous injection",
+      cycle: "3–6 months continuous",
+    },
+    sideEffects: ["Injection site reaction", "Flushing", "Dizziness (rare)", "Headache"],
+    mechanism: "Synthetic analogue of endogenous GHRH (first 29 amino acids); directly stimulates anterior pituitary somatotrophs in a physiologic feedback loop.",
+    halfLife: "~10–20 minutes",
+    storage: "Lyophilized: 2–8°C. Reconstituted: 2–8°C, 2 weeks."
+  },
+  {
+    id: "pt141",
+    name: "PT-141",
+    fullName: "Bremelanotide",
+    categories: ["cognitive"],
+    tagline: "Central melanocortin sexual agonist",
+    benefits: [
+      "Enhances sexual arousal centrally",
+      "Effective in both men and women",
+      "Works independent of vascular mechanism",
+      "Rapid onset (45–90 min)"
+    ],
+    dosage: {
+      typical: "0.5–2 mg per use",
+      frequency: "As needed, max 1× per 72 hrs",
+      method: "Subcutaneous injection or nasal spray",
+      cycle: "As needed (not for chronic daily use)"
+    },
+    sideEffects: ["Nausea (most common)", "Flushing", "Transient BP increase", "Headache"],
+    mechanism: "Melanocortin-4 (MC4R) and MC3R receptor agonist in the CNS; activates dopaminergic pathways in the hypothalamus to modulate sexual function.",
+    halfLife: "~2.7 hours",
+    storage: "Lyophilized: room temp. Reconstituted: 2–8°C, 30 days."
+  },
+  {
+    id: "ghkcu",
+    name: "GHK-Cu",
+    fullName: "Copper Peptide GHK-Cu",
+    categories: ["aging", "recovery"],
+    tagline: "Regenerative copper tripeptide complex",
+    benefits: [
+      "Stimulates collagen & elastin synthesis",
+      "Activates tissue remodeling",
+      "Potent antioxidant & anti-inflammatory",
+      "Nerve regeneration support"
+    ],
+    dosage: {
+      typical: "1–2 mg/day (injectable) or topical",
+      frequency: "Once daily injection or 2× daily topical",
+      method: "Subcutaneous or topical",
+      cycle: "8–12 weeks, can be longer topically"
+    },
+    sideEffects: ["Minimal systemic sides", "Topical: mild redness initially", "Excess copper at very high doses"],
+    mechanism: "Copper chelate that upregulates matrix metalloproteinases and TGF-β; promotes stem cell activation and switches macrophages toward M2 (healing) phenotype.",
+    halfLife: "~30–60 minutes (injectable)",
+    storage: "Lyophilized: 2–8°C. Reconstituted: 2–8°C, away from light.",
+    warnings: ["proliferative", "angiogenesis"]
+  },
+  {
+    id: "epithalon",
+    name: "Epithalon",
+    fullName: "Epithalamin / Epitalon",
+    categories: ["aging"],
+    tagline: "Telomere-lengthening tetrapeptide",
+    benefits: [
+      "Activates telomerase enzyme",
+      "Restores pineal melatonin output",
+      "Normalizes circadian rhythm",
+      "Potent antioxidant; DNA repair support"
+    ],
+    dosage: {
+      typical: "5–10 mg/day",
+      frequency: "Once daily (10–20 day course)",
+      method: "Subcutaneous injection",
+      cycle: "10–20 day course, 1–2× per year"
+    },
+    sideEffects: ["Generally very well tolerated", "Mild fatigue initially", "Transient headache (rare)"],
+    mechanism: "Tetrapeptide Ala-Glu-Asp-Gly; induces telomerase (TERT) via epigenetic modulation of chromatin; regulates hypothalamic-pituitary axis and pineal gland.",
+    halfLife: "~30–60 minutes",
+    storage: "Lyophilized: 2–8°C, protected from light.",
+    warnings: ["proliferative"]
+  },
+  {
+    id: "motsc",
+    name: "MOTS-c",
+    fullName: "Mitochondrial Open Reading Frame of the 12S rRNA-c",
+    categories: ["metabolic", "aging", "fat"],
+    tagline: "Mitochondrial peptide — the longevity regulator",
+    benefits: [
+      "Enhances mitochondrial biogenesis & function",
+      "Improves insulin sensitivity and glucose uptake",
+      "Activates AMPK — cellular energy master switch",
+      "Extends healthspan; potent anti-aging effects"
+    ],
+    dosage: {
+      typical: "5–10 mg/week",
+      frequency: "2–3× weekly or daily low-dose",
+      method: "Subcutaneous injection",
+      cycle: "8–12 weeks, 4–6 weeks off"
+    },
+    sideEffects: ["Generally well tolerated", "Mild fatigue initially", "Injection site redness"],
+    mechanism: "Endogenous mitochondrial-encoded peptide that translocates to the nucleus under metabolic stress; activates AMPK and regulates the folate cycle and de novo purine synthesis, improving metabolic flexibility and stress resistance.",
+    halfLife: "~Unknown (short, endogenous)",
+    storage: "Lyophilized: 2–8°C, protected from light. Reconstituted: 2–8°C, 14 days.",
+    warnings: ["proliferative"]
+  },
+  {
+    id: "wolverine",
+    name: "Wolverine Stack",
+    fullName: "BPC-157 + TB-500 Combination Protocol",
+    categories: ["recovery", "muscle"],
+    tagline: "The ultimate injury repair & regeneration stack",
+    benefits: [
+      "Synergistic acceleration of tissue repair",
+      "BPC-157 targets local injury; TB-500 acts systemically",
+      "Reduces recovery time from injuries by 40–60%",
+      "Promotes tendon, ligament, muscle & nerve healing"
+    ],
+    dosage: {
+      typical: "BPC-157: 250 mcg + TB-500: 2 mg",
+      frequency: "BPC-157: 2×/day; TB-500: 2×/week",
+      method: "Subcutaneous injection (near injury site for BPC)",
+      cycle: "4–6 weeks loading; reassess monthly"
+    },
+    sideEffects: ["Nausea (BPC component)", "Fatigue post-injection (TB-500)", "Mild headache", "Dizziness"],
+    mechanism: "Complementary dual-pathway healing: BPC-157 upregulates GH receptors and modulates nitric oxide for local vascular repair; TB-500 regulates actin polymerization for systemic cell migration and proliferation. Together they cover both local and systemic regeneration.",
+    halfLife: "BPC-157: ~4h / TB-500: ~30–40 min",
+    storage: "Store each peptide separately. Reconstituted: 2–8°C, 30 days.",
+    warnings: ["angiogenesis"]
+  },
+  {
+    id: "dsip",
+    name: "DSIP",
+    fullName: "Delta Sleep-Inducing Peptide",
+    categories: ["sleep", "cognitive"],
+    tagline: "Endogenous sleep regulator & stress modulator",
+    benefits: [
+      "Promotes slow-wave (delta) sleep onset",
+      "Reduces cortisol and normalizes stress response",
+      "Improves sleep architecture and continuity",
+      "Mild anxiolytic and pain-modulating effects"
+    ],
+    dosage: {
+      typical: "100–500 mcg/dose",
+      frequency: "Once nightly, 30–60 min before bed",
+      method: "Subcutaneous injection",
+      cycle: "5–10 day course; repeat as needed"
+    },
+    sideEffects: ["Vivid dreams", "Morning grogginess (dose-dependent)", "Mild headache", "Rare: nausea"],
+    mechanism: "Nonapeptide that modulates limbic and hypothalamic activity; reduces ACTH and cortisol secretion; upregulates delta-wave EEG activity by acting on opioid and somatostatin receptors in sleep-regulating brain regions.",
+    halfLife: "~30–60 minutes",
+    storage: "Lyophilized: 2–8°C. Reconstituted: 2–8°C, 14 days."
+  },
+  {
+    id: "selank",
+    name: "Selank",
+    fullName: "Selank (TP-7)",
+    categories: ["sleep", "cognitive"],
+    tagline: "Anxiolytic nootropic for calm focus & deep sleep",
+    benefits: [
+      "Reduces anxiety without sedation or dependence",
+      "Improves sleep quality and reduces sleep latency",
+      "Enhances memory consolidation and learning",
+      "Stabilizes BDNF and serotonin signaling"
+    ],
+    dosage: {
+      typical: "250–500 mcg/dose",
+      frequency: "1–2× daily (morning + evening)",
+      method: "Nasal spray or subcutaneous injection",
+      cycle: "10–14 days on, 5–7 days off"
+    },
+    sideEffects: ["Mild sedation", "Transient fatigue", "Nasal irritation (spray)", "Vivid dreams"],
+    mechanism: "Synthetic heptapeptide analogue of tuftsin; modulates GABAergic, serotonergic, and dopaminergic systems; inhibits enkephalin-degrading enzymes to prolong endogenous opioid tone; upregulates BDNF expression in hippocampus.",
+    halfLife: "~1–2 minutes (native); nasal/subQ extends effect to hours",
+    storage: "Lyophilized: room temp. Nasal solution: 2–8°C. Use within 30 days."
+  },
+  {
+    id: "semax",
+    name: "Semax",
+    fullName: "Semax (ACTH 4-7 Pro-Gly-Pro)",
+    categories: ["sleep", "cognitive"],
+    tagline: "Neuroprotective peptide for cognition & recovery",
+    benefits: [
+      "Potent BDNF upregulation for neuroplasticity",
+      "Improves focus, memory, and mental clarity",
+      "Reduces neuroinflammation and oxidative stress",
+      "Supports recovery from stroke and brain injury"
+    ],
+    dosage: {
+      typical: "300–600 mcg/day",
+      frequency: "Once or twice daily",
+      method: "Nasal spray (primary) or subcutaneous",
+      cycle: "10–14 days on, 5–7 days off"
+    },
+    sideEffects: ["Mild irritability at high doses", "Nasal irritation (spray)", "Transient anxiety", "Overstimulation"],
+    mechanism: "ACTH(4-10) analogue that activates melanocortin receptors (MC4R/MC5R); markedly elevates BDNF, NGF, and VEGF in hippocampus; modulates dopamine and serotonin release; inhibits prolyl endopeptidase to protect neuropeptide signaling.",
+    halfLife: "~7 minutes (nasal absorption extends effect)",
+    storage: "Lyophilized/nasal solution: 2–8°C. Protect from light."
+  },
+  {
+    id: "tesamorelin",
+    name: "Tesamorelin",
+    fullName: "Tesamorelin Acetate (Egrifta)",
+    categories: ["fat", "muscle"],
+    tagline: "FDA-approved GHRH for visceral fat reduction",
+    benefits: [
+      "Significantly reduces visceral adipose tissue",
+      "Increases IGF-1 without supraphysiologic GH",
+      "Improves lipid profile & waist circumference",
+      "Preserves lean body mass"
+    ],
+    dosage: {
+      typical: "1–2 mg/day",
+      frequency: "Once daily",
+      method: "Subcutaneous injection (abdomen)",
+      cycle: "3–6 months; can continue if responding"
+    },
+    sideEffects: ["Injection site reactions", "Fluid retention/edema", "Arthralgia", "Glucose dysregulation at high doses"],
+    mechanism: "Stabilized analogue of endogenous GHRH(1-44); binds GHRH receptors on pituitary somatotrophs to stimulate pulsatile GH secretion and downstream IGF-1, selectively mobilizing visceral fat via lipolysis.",
+    halfLife: "~26–38 minutes",
+    storage: "Lyophilized: 2–8°C. Reconstituted: 2–8°C, use within 24 hours."
+  },
+  {
+    id: "semaglutide",
+    name: "Semaglutide",
+    fullName: "Semaglutide (GLP-1 RA)",
+    categories: ["metabolic", "fat"],
+    tagline: "Gold-standard GLP-1 agonist for weight loss",
+    benefits: [
+      "Potent appetite suppression via CNS GLP-1R",
+      "Significant sustained weight loss (15–20%+)",
+      "Improves glycemic control & insulin sensitivity",
+      "Cardiovascular & cardiorenal protective effects"
+    ],
+    dosage: {
+      typical: "0.25 mg → up to 2.4 mg/week",
+      frequency: "Once weekly",
+      method: "Subcutaneous injection (pen)",
+      cycle: "Titrate over 16–20 weeks; ongoing use"
+    },
+    sideEffects: ["Nausea/vomiting (common, transient)", "Diarrhea/constipation", "Gastroparesis risk", "Injection site reactions", "Rare: pancreatitis"],
+    mechanism: "Long-acting GLP-1 receptor agonist (C18 fatty diacid chain for albumin binding); activates hypothalamic GLP-1Rs to suppress appetite, slows gastric emptying, and potentiates glucose-dependent insulin secretion.",
+    halfLife: "~1 week",
+    storage: "Pen: 2–8°C (unused); up to 28 days at room temp once in use."
+  },
+  {
+    id: "tirzepatide",
+    name: "Tirzepatide",
+    fullName: "Tirzepatide (GLP-1 / GIP Dual Agonist)",
+    categories: ["metabolic", "fat"],
+    tagline: "Dual GLP-1/GIP agonist — superior weight outcomes",
+    benefits: [
+      "Greater weight loss than GLP-1 monotherapy (20–22%+)",
+      "Dual incretin synergy for enhanced fat loss",
+      "Superior HbA1c reduction vs semaglutide",
+      "Improved triglycerides and liver fat markers"
+    ],
+    dosage: {
+      typical: "2.5 mg → up to 15 mg/week",
+      frequency: "Once weekly",
+      method: "Subcutaneous injection (pen)",
+      cycle: "Titrate over 20 weeks; ongoing use"
+    },
+    sideEffects: ["Nausea/vomiting", "Diarrhea", "Constipation", "Decreased appetite", "Rare: acute pancreatitis"],
+    mechanism: "Unimolecular GLP-1R and GIPR co-agonist; GIP component enhances adipocyte lipolysis and reduces GLP-1 nausea, while GLP-1 component suppresses appetite — synergistic incretin effect exceeds either alone.",
+    halfLife: "~5 days",
+    storage: "Pen: 2–8°C (unused); up to 21 days at room temp once in use."
+  },
+  {
+    id: "retatrutide",
+    name: "Retatrutide",
+    fullName: "Retatrutide (GLP-1 / GIP / Glucagon Triple Agonist)",
+    categories: ["metabolic", "fat"],
+    tagline: "Triple agonist — next-gen metabolic powerhouse",
+    benefits: [
+      "Unprecedented weight loss in trials (24%+ at 48 weeks)",
+      "Triple receptor synergy: GLP-1R + GIPR + GcgR",
+      "Glucagon component drives hepatic fat oxidation",
+      "Favorable effects on lipids, BP, and liver steatosis"
+    ],
+    dosage: {
+      typical: "1 mg → up to 12 mg/week (Phase 3 doses)",
+      frequency: "Once weekly",
+      method: "Subcutaneous injection",
+      cycle: "Titrate over 24 weeks; long-term use studied"
+    },
+    sideEffects: ["Nausea/vomiting (most common)", "Diarrhea", "Decreased appetite", "Transient HR increase (glucagon effect)", "Injection site reactions"],
+    mechanism: "Single peptide with balanced agonism at GLP-1R (appetite suppression), GIPR (incretin amplification, adipocyte lipolysis), and glucagon receptor (hepatic glucose output, thermogenesis, fat oxidation) — three complementary metabolic axes.",
+    halfLife: "~6 days",
+    storage: "2–8°C. Clinical formulation; not widely commercially available as of 2026."
+  },
+  {
+    id: "glp2",
+    name: "GLP-2 / Teduglutide",
+    fullName: "Glucagon-Like Peptide-2 / Teduglutide",
+    categories: ["metabolic", "recovery"],
+    tagline: "Gut-trophic hormone for intestinal repair",
+    benefits: [
+      "Stimulates intestinal epithelial proliferation",
+      "Reduces intestinal permeability ('leaky gut')",
+      "Increases nutrient absorption capacity",
+      "Anti-inflammatory in GI mucosa"
+    ],
+    dosage: {
+      typical: "0.05 mg/kg/day (Teduglutide)",
+      frequency: "Once daily",
+      method: "Subcutaneous injection",
+      cycle: "Ongoing (chronic intestinal conditions) or 4–8 weeks (gut health)"
+    },
+    sideEffects: ["Abdominal pain/distension", "Nausea", "Injection site reactions", "Potential colorectal polyp growth (monitor)"],
+    mechanism: "GLP-2 receptor agonist; activates enteric neurons and subepithelial myofibroblasts to increase crypt depth, villus height, and mucosal blood flow; stabilized analogue (Teduglutide) resists DPP-4 degradation.",
+    halfLife: "~7 minutes (native GLP-2); ~2 hours (Teduglutide)",
+    storage: "Lyophilized/prefilled: 2–8°C. Reconstituted: use immediately."
+  }
+];
+
+const CATEGORIES = [
+  { id: "all",       label: "All Peptides", color: null },
+  { id: "metabolic", label: "Metabolic",    color: "var(--cat-metabolic)" },
+  { id: "fat",       label: "Fat Loss",     color: "var(--cat-fat)" },
+  { id: "muscle",    label: "Muscle",       color: "var(--cat-muscle)" },
+  { id: "recovery",  label: "Recovery",     color: "var(--cat-recovery)" },
+  { id: "aging",     label: "Anti-Aging",   color: "var(--cat-aging)" },
+  { id: "cognitive", label: "Cognitive",    color: "var(--cat-cognitive)" },
+  { id: "sleep",     label: "Sleep",        color: "var(--cat-sleep)" },
+];
+
+const CAT_META = {
+  metabolic: { label: "Metabolic",  color: "var(--cat-metabolic)" },
+  fat:       { label: "Fat Loss",   color: "var(--cat-fat)" },
+  muscle:    { label: "Muscle",     color: "var(--cat-muscle)" },
+  recovery:  { label: "Recovery",   color: "var(--cat-recovery)" },
+  aging:     { label: "Anti-Aging", color: "var(--cat-aging)" },
+  cognitive: { label: "Cognitive",  color: "var(--cat-cognitive)" },
+  sleep:     { label: "Sleep",      color: "var(--cat-sleep)" },
+};
+
+/* ── Warning Metadata ────────────────────────────────── */
+const WARNING_META = {
+  gh_stimulating: {
+    label: "GH-Stimulating",
+    short: "GH",
+    tip: "Stimulates growth hormone or IGF-1 production. Contraindicated in active malignancy — GH can accelerate tumor cell proliferation. Also use with caution in diabetic retinopathy, active intracranial hypertension, and pediatric patients with open epiphyses.",
+    color: "#e07830",
+  },
+  proliferative: {
+    label: "Cell-Proliferative",
+    short: "CELL",
+    tip: "Promotes cell growth, regeneration, or telomerase activation. Avoid with active cancer, pre-malignant conditions, or a strong family history of hormone-sensitive cancers until cleared by an oncologist.",
+    color: "#d04060",
+  },
+  angiogenesis: {
+    label: "Pro-Angiogenic",
+    short: "ANGIO",
+    tip: "Promotes new blood vessel formation (angiogenesis). While beneficial for healing, this mechanism may support tumor vascularization. Contraindicated in active or recent malignancy.",
+    color: "#c05080",
+  },
+};
+
+/* ── Global Cancer Disclaimer Banner ─────────────────── */
+function CancerDisclaimerBanner() {
+  const [dismissed, setDismissed] = useState(() => {
+    try { return sessionStorage.getItem("cancer_disclaimer_dismissed") === "1"; } catch { return false; }
+  });
+
+  if (dismissed) return null;
+
+  return (
+    <div style={{
+      background: "linear-gradient(135deg, rgba(180,30,40,0.18) 0%, rgba(100,10,20,0.25) 100%)",
+      border: "1px solid rgba(220,60,70,0.35)",
+      borderLeft: "4px solid #d03545",
+      borderRadius: 10,
+      padding: "16px 16px",
+      margin: "0 max(16px, calc((100vw - 1200px) / 2))",
+      marginTop: 24,
+      display: "flex",
+      gap: 14,
+      alignItems: "flex-start",
+      position: "relative",
+    }}>
+      <div style={{ fontSize: 22, flexShrink: 0, marginTop: 1 }}>⚠</div>
+      <div style={{ flex: 1 }}>
+        <div style={{
+          fontWeight: 700,
+          fontSize: 13,
+          color: "#f08090",
+          letterSpacing: "0.04em",
+          textTransform: "uppercase",
+          marginBottom: 6,
+        }}>
+          Important Safety Warning — Active Cancer & Malignancy
+        </div>
+        <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 8 }}>
+          Several peptides in this guide stimulate <strong style={{ color: "var(--text-primary)" }}>growth hormone (GH)</strong>, promote <strong style={{ color: "var(--text-primary)" }}>cell proliferation</strong>, or induce <strong style={{ color: "var(--text-primary)" }}>angiogenesis</strong> (new blood vessel formation). These mechanisms, while beneficial for healthy individuals, may <strong style={{ color: "#f08090)" }}>accelerate tumor growth or support tumor vascularization</strong> in individuals with active or recent cancer.
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
+          {Object.entries(WARNING_META).map(([key, w]) => (
+            <span key={key} style={{
+              padding: "3px 10px",
+              borderRadius: 5,
+              fontSize: 11,
+              fontWeight: 600,
+              background: `color-mix(in srgb, ${w.color} 15%, transparent)`,
+              border: `1px solid color-mix(in srgb, ${w.color} 35%, transparent)`,
+              color: w.color,
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+            }}>{w.label}</span>
+          ))}
+        </div>
+        <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6 }}>
+          Affected peptides are marked with colored warning badges. <strong style={{ color: "var(--text-secondary)" }}>If you have or have had any cancer, pre-malignant condition, or hormone-sensitive tumour — consult a qualified oncologist before using any peptide on this list.</strong> This includes but is not limited to: breast, prostate, colorectal, thyroid, and pituitary cancers.
+        </p>
+      </div>
+      <button
+        onClick={() => {
+          try { sessionStorage.setItem("cancer_disclaimer_dismissed", "1"); } catch {}
+          setDismissed(true);
+        }}
+        style={{
+          flexShrink: 0,
+          background: "rgba(255,255,255,0.06)",
+          border: "1px solid rgba(255,255,255,0.1)",
+          color: "var(--text-muted)",
+          borderRadius: 7,
+          width: 28, height: 28,
+          cursor: "pointer",
+          fontSize: 14,
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}
+        title="Dismiss (this session)"
+      >✕</button>
+    </div>
+  );
+}
+
+/* ── Warning Badge (inline on card) ──────────────────── */
+function WarningBadge({ warnKey }) {
+  const [tip, setTip] = useState(false);
+  const w = WARNING_META[warnKey];
+  if (!w) return null;
+  return (
+    <div style={{ position: "relative", display: "inline-block" }}>
+      <span
+        onMouseEnter={() => setTip(true)}
+        onMouseLeave={() => setTip(false)}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 3,
+          padding: "2px 7px",
+          borderRadius: 5,
+          fontSize: 10,
+          fontWeight: 700,
+          letterSpacing: "0.06em",
+          textTransform: "uppercase",
+          color: w.color,
+          background: `color-mix(in srgb, ${w.color} 12%, transparent)`,
+          border: `1px solid color-mix(in srgb, ${w.color} 30%, transparent)`,
+          cursor: "help",
+          whiteSpace: "nowrap",
+        }}
+      >
+        ⚠ {w.short}
+      </span>
+      {tip && (
+        <div style={{
+          position: "absolute",
+          bottom: "calc(100% + 6px)",
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "#0c1d38",
+          border: `1px solid color-mix(in srgb, ${w.color} 30%, rgba(255,255,255,0.1))`,
+          borderRadius: 8,
+          padding: "10px 13px",
+          fontSize: 11.5,
+          color: "var(--text-secondary)",
+          lineHeight: 1.6,
+          width: 240,
+          zIndex: 100,
+          boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
+          pointerEvents: "none",
+          textTransform: "none",
+          fontWeight: 400,
+          letterSpacing: 0,
+        }}>
+          <strong style={{ color: w.color, display: "block", marginBottom: 4 }}>⚠ {w.label}</strong>
+          {w.tip}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Category Badge ───────────────────────────────────── */
+function CategoryBadge({ catId, small }) {
+  const meta = CAT_META[catId];
+  if (!meta) return null;
+  return (
+    <span style={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 4,
+      padding: small ? "2px 8px" : "3px 10px",
+      borderRadius: "var(--radius-badge)",
+      fontSize: small ? 10 : 11,
+      fontWeight: 600,
+      letterSpacing: "0.06em",
+      textTransform: "uppercase",
+      color: meta.color,
+      background: `color-mix(in srgb, ${meta.color} 12%, transparent)`,
+      border: `1px solid color-mix(in srgb, ${meta.color} 30%, transparent)`,
+      whiteSpace: "nowrap",
+    }}>
+      {meta.label}
+    </span>
+  );
+}
+
+/* ── Peptide Card ─────────────────────────────────────── */
+function PeptideCard({ peptide, onClick, accentColor }) {
+  const [hovered, setHovered] = useState(false);
+  const primaryCat = peptide.categories[0];
+  const accentVar = CAT_META[primaryCat]?.color || "var(--gold-400)";
+
+  return (
+    <div
+      onClick={() => onClick(peptide)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: hovered
+          ? "linear-gradient(160deg, #0d1e38 0%, #0a1628 100%)"
+          : "linear-gradient(160deg, #0c1c35 0%, #080f1e 100%)",
+        border: `1px solid ${hovered ? "rgba(200,153,42,0.35)" : "rgba(255,255,255,0.06)"}`,
+        borderRadius: "var(--radius-card)",
+        boxShadow: hovered ? "var(--shadow-hover)" : "var(--shadow-card)",
+        cursor: "pointer",
+        transition: "all 0.22s ease",
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
+      {/* Top accent line */}
+      <div style={{
+        position: "absolute",
+        top: 0, left: 0, right: 0,
+        height: 2,
+        background: `linear-gradient(90deg, ${accentVar}, transparent)`,
+        opacity: hovered ? 1 : 0.5,
+        transition: "opacity 0.22s",
+      }} />
+
+      {/* Card body */}
+      <div style={{ padding: "clamp(16px, 4vw, 22px) clamp(14px, 4vw, 22px) 18px" }}>
+        {/* Header */}
+        <div style={{ marginBottom: 10 }}>
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8, marginBottom: 6 }}>
+            <h2 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 22,
+              fontWeight: 600,
+              color: "var(--white)",
+              lineHeight: 1.1,
+            }}>
+              {peptide.name}
+            </h2>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 4, justifyContent: "flex-end", flexShrink: 0, maxWidth: 140 }}>
+              {peptide.categories.map(c => <CategoryBadge key={c} catId={c} small />)}
+            </div>
+          </div>
+          <div style={{
+            fontFamily: "'DM Mono', monospace",
+            fontSize: 10,
+            color: "var(--text-muted)",
+            letterSpacing: "0.04em",
+            textTransform: "uppercase",
+            marginBottom: 6,
+          }}>
+            {peptide.fullName}
+          </div>
+          <div style={{ fontSize: 12.5, color: "var(--text-secondary)", fontStyle: "italic", lineHeight: 1.4 }}>
+            {peptide.tagline}
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div style={{ height: 1, background: "rgba(255,255,255,0.05)", margin: "14px 0" }} />
+
+        {/* Benefits */}
+        <div style={{ marginBottom: 14 }}>
+          <div style={{
+            fontSize: 10,
+            fontWeight: 600,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "var(--gold-400)",
+            marginBottom: 8,
+          }}>Key Benefits</div>
+          <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 5 }}>
+            {peptide.benefits.slice(0, 3).map((b, i) => (
+              <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 12.5, color: "var(--text-secondary)", lineHeight: 1.4 }}>
+                <span style={{ color: accentVar, flexShrink: 0, marginTop: 1, fontSize: 8 }}>◆</span>
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Dosage strip */}
+        <div style={{
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.07)",
+          borderRadius: 8,
+          padding: "10px 12px",
+          display: "flex",
+          gap: 12,
+          alignItems: "center",
+        }}>
+          <div>
+            <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 3 }}>Dosage</div>
+            <div style={{ fontSize: 12, fontFamily: "'DM Mono', monospace", color: "var(--text-primary)" }}>{peptide.dosage.typical}</div>
+          </div>
+          <div style={{ width: 1, alignSelf: "stretch", background: "rgba(255,255,255,0.07)" }} />
+          <div>
+            <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 3 }}>Method</div>
+            <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>{peptide.dosage.method.replace("Subcutaneous ", "SubQ ")}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div style={{
+        borderTop: "1px solid rgba(255,255,255,0.05)",
+        padding: "10px 22px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 8,
+        flexWrap: "wrap",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+          <div style={{ fontSize: 11, color: "var(--text-muted)" }}>t½ {peptide.halfLife}</div>
+          {peptide.warnings && peptide.warnings.map(w => <WarningBadge key={w} warnKey={w} />)}
+        </div>
+        <div style={{
+          fontSize: 11,
+          color: "var(--gold-400)",
+          fontWeight: 500,
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          opacity: hovered ? 1 : 0.6,
+          transition: "opacity 0.2s",
+          flexShrink: 0,
+        }}>
+          View details →
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Detail Modal ─────────────────────────────────────── */
+function PeptideModal({ peptide, onClose }) {
+  const primaryCat = peptide.categories[0];
+  const accentVar = CAT_META[primaryCat]?.color || "var(--gold-400)";
+
+  useEffect(() => {
+    const handler = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed", inset: 0,
+        background: "rgba(5,12,26,0.85)",
+        backdropFilter: "blur(8px)",
+        zIndex: 1000,
+        display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "center",
+        padding: "16px",
+        overflowY: "auto",
+        animation: "fadeIn 0.18s ease",
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          background: "linear-gradient(160deg, #0e1e38 0%, #0a1525 100%)",
+          border: "1px solid rgba(200,153,42,0.2)",
+          borderRadius: 18,
+          boxShadow: "0 24px 80px rgba(0,0,0,0.7), 0 4px 16px rgba(0,0,0,0.5)",
+          width: "100%",
+          maxWidth: 680,
+          marginTop: "auto",
+          marginBottom: "auto",
+          position: "relative",
+        }}
+      >
+        {/* Top gradient bar */}
+        <div style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+          background: "linear-gradient(160deg, #0e1e38 0%, #0a1525 100%)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          padding: "24px 28px 20px",
+        }}>
+          <button
+            onClick={onClose}
+            style={{
+              position: "absolute", top: 18, right: 20,
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              color: "var(--text-secondary)",
+              borderRadius: 8,
+              width: 32, height: 32,
+              cursor: "pointer",
+              fontSize: 16,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              transition: "all 0.15s",
+            }}
+          >✕</button>
+
+          <div style={{ display: "flex", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
+            {peptide.categories.map(c => <CategoryBadge key={c} catId={c} />)}
+          </div>
+          <h2 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 30,
+            fontWeight: 600,
+            color: "var(--white)",
+            marginBottom: 4,
+          }}>{peptide.name}</h2>
+          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase" }}>
+            {peptide.fullName}
+          </div>
+          <div style={{ marginTop: 8, fontSize: 14, color: "var(--text-secondary)", fontStyle: "italic" }}>{peptide.tagline}</div>
+          {peptide.warnings && peptide.warnings.length > 0 && (
+            <div style={{ marginTop: 12, padding: "10px 14px", background: "rgba(180,30,40,0.12)", border: "1px solid rgba(220,60,70,0.25)", borderRadius: 8, fontSize: 12.5, color: "#f08090", lineHeight: 1.6 }}>
+              <strong style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>⚠ Contraindication Warning</strong>
+              {peptide.warnings.includes("gh_stimulating") && <div>• <strong>GH-stimulating:</strong> May accelerate tumour growth via IGF-1 axis. Contraindicated in active malignancy.</div>}
+              {peptide.warnings.includes("proliferative") && <div>• <strong>Pro-proliferative:</strong> Activates cell growth pathways. Avoid with active or recent cancer.</div>}
+              {peptide.warnings.includes("angiogenesis") && <div>• <strong>Pro-angiogenic:</strong> Promotes new blood vessel formation — may support tumour vascularisation.</div>}
+            </div>
+          )}
+        </div>
+
+        {/* Body */}
+        <div style={{ padding: "24px 28px 28px", display: "flex", flexDirection: "column", gap: 22 }}>
+          {/* Benefits */}
+          <Section title="Key Benefits" accent={accentVar}>
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+              {peptide.benefits.map((b, i) => (
+                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                  <span style={{ color: accentVar, flexShrink: 0, fontSize: 9, marginTop: 4 }}>◆</span>
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </Section>
+
+          {/* Dosage */}
+          <Section title="Dosage Protocol" accent={accentVar}>
+            <div className="dosage-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+              {[
+                { label: "Typical Dose", value: peptide.dosage.typical },
+                { label: "Frequency", value: peptide.dosage.frequency },
+                { label: "Method", value: peptide.dosage.method },
+                { label: "Cycle", value: peptide.dosage.cycle },
+              ].map(({ label, value }) => (
+                <div key={label} style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  borderRadius: 8,
+                  padding: "12px 14px",
+                }}>
+                  <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 4 }}>{label}</div>
+                  <div style={{ fontSize: 13, color: "var(--text-primary)", fontFamily: label === "Typical Dose" ? "'DM Mono', monospace" : "inherit" }}>{value}</div>
+                </div>
+              ))}
+            </div>
+          </Section>
+
+          {/* Mechanism */}
+          <Section title="Mechanism of Action" accent={accentVar}>
+            <p style={{ fontSize: 13.5, color: "var(--text-secondary)", lineHeight: 1.7 }}>{peptide.mechanism}</p>
+          </Section>
+
+          {/* Side effects */}
+          <Section title="Side Effects" accent={accentVar}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {peptide.sideEffects.map((s, i) => (
+                <span key={i} style={{
+                  padding: "5px 12px",
+                  background: "rgba(255,80,50,0.08)",
+                  border: "1px solid rgba(255,80,50,0.18)",
+                  borderRadius: 6,
+                  fontSize: 12.5,
+                  color: "#e08070",
+                }}>{s}</span>
+              ))}
+            </div>
+          </Section>
+
+          {/* Storage & pharmacokinetics */}
+          <div className="half-storage-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+            <Section title="Half-Life" accent={accentVar}>
+              <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 16, color: "var(--gold-300)" }}>{peptide.halfLife}</div>
+            </Section>
+            <Section title="Storage" accent={accentVar}>
+              <p style={{ fontSize: 12.5, color: "var(--text-secondary)", lineHeight: 1.6 }}>{peptide.storage}</p>
+            </Section>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Section({ title, accent, children }) {
+  return (
+    <div>
+      <div style={{
+        fontSize: 10,
+        fontWeight: 700,
+        letterSpacing: "0.12em",
+        textTransform: "uppercase",
+        color: accent || "var(--gold-400)",
+        marginBottom: 12,
+        paddingBottom: 8,
+        borderBottom: `1px solid color-mix(in srgb, ${accent || "var(--gold-400)"} 20%, transparent)`,
+      }}>{title}</div>
+      {children}
+    </div>
+  );
+}
+
+/* ── Stacking Guide Data ──────────────────────────────── */
+const STACKS = [
+  {
+    id: "performance",
+    name: "Performance & Body Recomp",
+    icon: "◈",
+    color: "var(--cat-muscle)",
+    description: "Maximize muscle gain, fat loss, and recovery simultaneously.",
+    peptides: ["CJC-1295", "Ipamorelin", "BPC-157", "TB-500"],
+    notes: "CJC+Ipamorelin is the cornerstone GH stack — take pre-sleep. Add BPC/TB-500 if training hard or managing injuries."
+  },
+  {
+    id: "wolverine",
+    name: "Wolverine Healing Stack",
+    icon: "⬡",
+    color: "var(--cat-recovery)",
+    description: "Maximum tissue repair — injury recovery, post-surgery, or chronic pain.",
+    peptides: ["BPC-157", "TB-500", "GHK-Cu"],
+    notes: "BPC-157 locally near the injury site; TB-500 systemically. GHK-Cu accelerates collagen remodeling. The gold standard for recovery."
+  },
+  {
+    id: "longevity",
+    name: "Longevity & Anti-Aging",
+    icon: "◇",
+    color: "var(--cat-aging)",
+    description: "Target telomere length, cellular regeneration, and hormonal optimization.",
+    peptides: ["Epithalon", "GHK-Cu", "Sermorelin", "MOTS-c"],
+    notes: "Run Epithalon as a 2-week course 1-2× per year. MOTS-c year-round for metabolic health. GHK-Cu topical daily."
+  },
+  {
+    id: "metabolic",
+    name: "Metabolic & Weight Loss",
+    icon: "◉",
+    color: "var(--cat-metabolic)",
+    description: "Aggressive fat loss with metabolic optimization and muscle preservation.",
+    peptides: ["Semaglutide", "Tesamorelin", "Ipamorelin", "MOTS-c"],
+    notes: "Semaglutide or Tirzepatide as backbone. Tesamorelin specifically targets visceral fat. Ipamorelin preserves muscle during a cut."
+  },
+  {
+    id: "cognitive",
+    name: "Cognitive & Neuro Stack",
+    icon: "◎",
+    color: "var(--cat-cognitive)",
+    description: "Focus, neuroplasticity, anxiety reduction, and mental resilience.",
+    peptides: ["Semax", "Selank", "DSIP"],
+    notes: "Semax AM for focus and BDNF boost; Selank PM for anxiety reduction; DSIP at bedtime for deep sleep and memory consolidation."
+  },
+  {
+    id: "sleep",
+    name: "Sleep Optimization",
+    icon: "◑",
+    color: "var(--cat-sleep)",
+    description: "Improve sleep onset, depth, and overnight recovery.",
+    peptides: ["DSIP", "Selank", "Epithalon", "Ipamorelin"],
+    notes: "Layer DSIP + Selank for deep sleep induction. Ipamorelin pre-sleep maximizes overnight GH pulse. Epithalon normalizes circadian melatonin."
+  },
+];
+
+const TIMING = {
+  morning: [
+    { name: "Semax",        reason: "BDNF boost & cognitive priming for the day",        cats: ["cognitive"] },
+    { name: "MOTS-c",       reason: "AMPK activation enhances metabolic efficiency",       cats: ["metabolic"] },
+    { name: "Tesamorelin",  reason: "Daily dosing; AM injection per clinical protocol",    cats: ["fat"] },
+    { name: "Semaglutide",  reason: "Weekly — take AM to manage GI side effects in day",  cats: ["metabolic"] },
+    { name: "Tirzepatide",  reason: "Weekly — AM dosing; monitor appetite through day",   cats: ["metabolic"] },
+    { name: "PT-141",       reason: "45–90 min onset; take 1–2 hrs before intended use",  cats: ["cognitive"] },
+    { name: "BPC-157",      reason: "First daily dose AM; near injury site if applicable", cats: ["recovery"] },
+    { name: "TB-500",       reason: "2× weekly AM; systemic distribution throughout day", cats: ["recovery"] },
+    { name: "GHK-Cu",       reason: "AM injection or topical application to skin",         cats: ["aging"] },
+  ],
+  evening: [
+    { name: "CJC-1295",     reason: "Pre-sleep to align with natural GH nocturnal pulse",  cats: ["muscle"] },
+    { name: "Ipamorelin",   reason: "Pre-sleep GH secretagogue — potentiates overnight pulse", cats: ["muscle"] },
+    { name: "Sermorelin",   reason: "Must be taken at night — only works during sleep",    cats: ["aging"] },
+    { name: "DSIP",         reason: "30–60 min before bed; induces delta sleep",           cats: ["sleep"] },
+    { name: "Selank",       reason: "Evening dose for anxiety wind-down and sleep quality", cats: ["sleep"] },
+    { name: "Epithalon",    reason: "PM dose supports melatonin restoration and recovery",  cats: ["aging"] },
+    { name: "BPC-157",      reason: "Second daily dose PM; continuous tissue repair coverage", cats: ["recovery"] },
+    { name: "Retatrutide",  reason: "Weekly — PM may reduce daytime GI effects",           cats: ["metabolic"] },
+    { name: "GLP-2",        reason: "Once daily; evening aligns with intestinal repair cycle", cats: ["metabolic"] },
+  ],
+};
+
+/* ── Stacking Guide Component ─────────────────────────── */
+function StackingGuide() {
+  const [activeTab, setActiveTab] = useState("stacks");
+
+  return (
+    <div style={{ padding: "0 max(16px, calc((100vw - 1100px) / 2)) 60px" }}>
+      {/* Section header */}
+      <div style={{ textAlign: "center", marginBottom: 36, paddingTop: 12 }}>
+        <div style={{
+          display: "inline-block",
+          fontFamily: "'DM Mono', monospace",
+          fontSize: 10,
+          letterSpacing: "0.2em",
+          textTransform: "uppercase",
+          color: "var(--gold-500)",
+          background: "rgba(200,153,42,0.08)",
+          border: "1px solid rgba(200,153,42,0.18)",
+          padding: "5px 14px",
+          borderRadius: 4,
+          marginBottom: 14,
+        }}>Protocol Guide</div>
+        <h2 style={{
+          fontFamily: "'Playfair Display', serif",
+          fontSize: "clamp(24px, 3vw, 36px)",
+          fontWeight: 600,
+          color: "var(--white)",
+          marginBottom: 8,
+        }}>Stacking & Timing</h2>
+        <p style={{ fontSize: 14, color: "var(--text-secondary)", maxWidth: 480, margin: "0 auto" }}>
+          Evidence-based peptide combinations and optimal administration windows.
+        </p>
+      </div>
+
+      {/* Tab switcher */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 4, marginBottom: 32 }}>
+        {[{ id: "stacks", label: "Recommended Stacks" }, { id: "timing", label: "Morning / Evening Split" }].map(tab => (
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
+            padding: "8px 20px",
+            borderRadius: 99,
+            border: activeTab === tab.id ? "1.5px solid rgba(200,153,42,0.5)" : "1.5px solid rgba(255,255,255,0.1)",
+            background: activeTab === tab.id ? "rgba(200,153,42,0.12)" : "rgba(255,255,255,0.03)",
+            color: activeTab === tab.id ? "var(--gold-300)" : "var(--text-secondary)",
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: 13,
+            fontWeight: activeTab === tab.id ? 600 : 400,
+            cursor: "pointer",
+            transition: "all 0.18s",
+          }}>{tab.label}</button>
+        ))}
+      </div>
+
+      {activeTab === "stacks" ? <StacksView /> : <TimingView />}
+    </div>
+  );
+}
+
+function StacksView() {
+  return (
+    <div className="stacking-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 18 }}>
+      {STACKS.map(stack => (
+        <div key={stack.id} style={{
+          background: "linear-gradient(160deg, #0c1c35 0%, #080f1e 100%)",
+          border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: 14,
+          overflow: "hidden",
+          boxShadow: "var(--shadow-card)",
+          position: "relative",
+        }}>
+          {/* Top accent */}
+          <div style={{ height: 2, background: `linear-gradient(90deg, ${stack.color}, transparent)` }} />
+          <div style={{ padding: "20px 22px 22px" }}>
+            {/* Header */}
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 10 }}>
+              <div style={{
+                width: 36, height: 36, borderRadius: 8, flexShrink: 0,
+                background: `color-mix(in srgb, ${stack.color} 15%, transparent)`,
+                border: `1px solid color-mix(in srgb, ${stack.color} 30%, transparent)`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: 16, color: stack.color,
+              }}>{stack.icon}</div>
+              <div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, fontWeight: 600, color: "var(--white)", lineHeight: 1.2, marginBottom: 4 }}>{stack.name}</div>
+                <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.4 }}>{stack.description}</div>
+              </div>
+            </div>
+
+            {/* Peptide chips */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 14 }}>
+              {stack.peptides.map((p, i) => (
+                <span key={i} style={{
+                  padding: "4px 12px",
+                  borderRadius: 6,
+                  fontSize: 12,
+                  fontWeight: 500,
+                  background: `color-mix(in srgb, ${stack.color} 10%, rgba(255,255,255,0.04))`,
+                  border: `1px solid color-mix(in srgb, ${stack.color} 25%, rgba(255,255,255,0.06))`,
+                  color: "var(--text-primary)",
+                  fontFamily: "'DM Mono', monospace",
+                }}>{p}</span>
+              ))}
+            </div>
+
+            {/* Protocol note */}
+            <div style={{
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: 8,
+              padding: "10px 12px",
+              fontSize: 12.5,
+              color: "var(--text-secondary)",
+              lineHeight: 1.6,
+              fontStyle: "italic",
+            }}>
+              {stack.notes}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TimingView() {
+  return (
+    <div className="timing-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+      {/* Morning */}
+      <TimingColumn
+        label="Morning"
+        sublabel="Upon waking — fasted or with breakfast"
+        icon="☀"
+        color="var(--gold-400)"
+        bg="rgba(200,153,42,0.06)"
+        border="rgba(200,153,42,0.15)"
+        items={TIMING.morning}
+      />
+      {/* Evening */}
+      <TimingColumn
+        label="Evening / Pre-Sleep"
+        sublabel="30–60 min before bed unless noted"
+        icon="◗"
+        color="var(--cat-sleep)"
+        bg="rgba(123,140,222,0.06)"
+        border="rgba(123,140,222,0.15)"
+        items={TIMING.evening}
+      />
+    </div>
+  );
+}
+
+function TimingColumn({ label, sublabel, icon, color, bg, border, items }) {
+  return (
+    <div style={{
+      background: "linear-gradient(160deg, #0c1c35 0%, #080f1e 100%)",
+      border: `1px solid rgba(255,255,255,0.06)`,
+      borderRadius: 14,
+      overflow: "hidden",
+      boxShadow: "var(--shadow-card)",
+    }}>
+      <div style={{
+        padding: "18px 22px 14px",
+        background: bg,
+        borderBottom: `1px solid ${border}`,
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+      }}>
+        <span style={{ fontSize: 20, color }}>{icon}</span>
+        <div>
+          <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 600, color: "var(--white)" }}>{label}</div>
+          <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 2 }}>{sublabel}</div>
+        </div>
+      </div>
+      <div style={{ padding: "14px 0" }}>
+        {items.map((item, i) => (
+          <div key={i} style={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 12,
+            padding: "10px 22px",
+            borderBottom: i < items.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
+          }}>
+            <div style={{ flexShrink: 0, marginTop: 2 }}>
+              <div style={{
+                width: 6, height: 6, borderRadius: "50%",
+                background: item.cats[0] ? `var(--cat-${item.cats[0]})` : color,
+                marginTop: 5,
+              }} />
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace", marginBottom: 2 }}>{item.name}</div>
+              <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.5 }}>{item.reason}</div>
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 4, flexShrink: 0 }}>
+              {item.cats.map(c => <CategoryBadge key={c} catId={c} small />)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── Filter Bar ───────────────────────────────────────── */
+function FilterBar({ active, onChange }) {
+  return (
+    <div className="filter-bar" style={{
+      display: "flex",
+      gap: 8,
+      flexWrap: "wrap",
+      justifyContent: "center",
+      marginBottom: 36,
+      padding: "0 0 4px",
+    }}>
+      {CATEGORIES.map(cat => {
+        const isActive = active === cat.id;
+        return (
+          <button
+            key={cat.id}
+            onClick={() => onChange(cat.id)}
+            style={{
+              padding: "9px 18px",
+              borderRadius: 99,
+              border: isActive
+                ? `1.5px solid ${cat.color || "var(--gold-400)"}`
+                : "1.5px solid rgba(255,255,255,0.1)",
+              background: isActive
+                ? `color-mix(in srgb, ${cat.color || "var(--gold-400)"} 15%, rgba(10,22,40,0.9))`
+                : "rgba(255,255,255,0.03)",
+              color: isActive
+                ? (cat.color || "var(--gold-400)")
+                : "var(--text-secondary)",
+              fontSize: 13,
+              fontWeight: isActive ? 600 : 400,
+              fontFamily: "'DM Sans', sans-serif",
+              cursor: "pointer",
+              transition: "all 0.18s ease",
+              letterSpacing: "0.02em",
+              whiteSpace: "nowrap",
+              minHeight: 40,
+            }}
+          >
+            {cat.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ── Comparison Tray ──────────────────────────────────── */
+function ComparisonTray({ selected, peptides, onRemove, onClear, onCompare }) {
+  if (selected.length === 0) return null;
+  const items = selected.map(id => peptides.find(p => p.id === id)).filter(Boolean);
+  return (
+    <div style={{
+      position: "fixed",
+      bottom: 20,
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 500,
+      background: "linear-gradient(135deg, #0f2044 0%, #0a1628 100%)",
+      border: "1px solid rgba(200,153,42,0.3)",
+      borderRadius: 14,
+      padding: "10px 14px",
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      boxShadow: "0 8px 40px rgba(0,0,0,0.6)",
+      backdropFilter: "blur(8px)",
+      maxWidth: "calc(100vw - 24px)",
+      flexWrap: "wrap",
+    }}>
+      <div style={{ fontSize: 12, color: "var(--text-muted)", whiteSpace: "nowrap" }}>Compare:</div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        {items.map(p => (
+          <div key={p.id} style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: 8,
+            padding: "4px 10px 4px 12px",
+          }}>
+            <span style={{ fontSize: 13, color: "var(--text-primary)", fontWeight: 500 }}>{p.name}</span>
+            <button onClick={() => onRemove(p.id)} style={{
+              background: "none", border: "none", color: "var(--text-muted)",
+              cursor: "pointer", padding: 0, fontSize: 12, lineHeight: 1,
+            }}>✕</button>
+          </div>
+        ))}
+      </div>
+      {selected.length >= 2 && (
+        <button onClick={onCompare} style={{
+          padding: "7px 16px",
+          background: "var(--gold-500)",
+          border: "none",
+          borderRadius: 8,
+          color: "var(--navy-900)",
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: 13,
+          fontWeight: 600,
+          cursor: "pointer",
+          whiteSpace: "nowrap",
+          transition: "background 0.15s",
+        }}>
+          Compare {selected.length}
+        </button>
+      )}
+      <button onClick={onClear} style={{
+        background: "none", border: "none",
+        color: "var(--text-muted)", cursor: "pointer",
+        fontSize: 12, whiteSpace: "nowrap",
+        fontFamily: "'DM Sans', sans-serif",
+      }}>Clear</button>
+    </div>
+  );
+}
+
+/* ── Compare Modal ────────────────────────────────────── */
+function CompareModal({ peptideIds, peptides, onClose }) {
+  const items = peptideIds.map(id => peptides.find(p => p.id === id)).filter(Boolean);
+  useEffect(() => {
+    const h = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, [onClose]);
+
+  const rows = [
+    { label: "Categories", render: p => p.categories.map(c => <CategoryBadge key={c} catId={c} small />).reduce((a,b) => <>{a}<span style={{display:"inline-block",width:4}} />{b}</>, null) },
+    { label: "Tagline", render: p => <span style={{fontStyle:"italic",fontSize:12}}>{p.tagline}</span> },
+    { label: "Typical Dose", render: p => <span style={{fontFamily:"'DM Mono',monospace",fontSize:12}}>{p.dosage.typical}</span> },
+    { label: "Frequency", render: p => p.dosage.frequency },
+    { label: "Method", render: p => p.dosage.method },
+    { label: "Cycle", render: p => p.dosage.cycle },
+    { label: "Half-Life", render: p => <span style={{fontFamily:"'DM Mono',monospace",color:"var(--gold-300)"}}>{p.halfLife}</span> },
+    { label: "Side Effects", render: p => p.sideEffects.slice(0,2).join(", ") },
+  ];
+
+  return (
+    <div onClick={onClose} style={{
+      position: "fixed", inset: 0,
+      background: "rgba(5,12,26,0.88)",
+      backdropFilter: "blur(8px)",
+      zIndex: 1100,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "24px 16px",
+      animation: "fadeIn 0.18s ease",
+    }}>
+      <div onClick={e => e.stopPropagation()} style={{
+        background: "linear-gradient(160deg, #0e1e38 0%, #0a1525 100%)",
+        border: "1px solid rgba(200,153,42,0.2)",
+        borderRadius: 18,
+        boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
+        width: "100%",
+        maxWidth: 800,
+        maxHeight: "90vh",
+        overflowY: "auto",
+      }}>
+        <div style={{ padding: "24px 28px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--white)" }}>
+            Side-by-Side Comparison
+          </h2>
+          <button onClick={onClose} style={{
+            background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
+            color: "var(--text-secondary)", borderRadius: 8, width: 32, height: 32,
+            cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center",
+          }}>✕</button>
+        </div>
+
+        <div style={{ overflowX: "auto", padding: "0 28px 28px" }}>
+          <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: 0, marginTop: 20 }}>
+            <thead>
+              <tr>
+                <th style={{ width: 120, padding: "10px 12px", textAlign: "left", fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>Field</th>
+                {items.map(p => {
+                  const accentVar = CAT_META[p.categories[0]]?.color || "var(--gold-400)";
+                  return (
+                    <th key={p.id} style={{ padding: "10px 16px", textAlign: "left", borderBottom: "1px solid rgba(255,255,255,0.07)", borderLeft: "1px solid rgba(255,255,255,0.05)" }}>
+                      <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: "var(--white)", fontWeight: 600 }}>{p.name}</div>
+                      <div style={{ height: 2, width: 40, background: accentVar, marginTop: 6, borderRadius: 2 }} />
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, i) => (
+                <tr key={row.label} style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent" }}>
+                  <td style={{ padding: "12px 12px", fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-muted)", whiteSpace: "nowrap", verticalAlign: "top" }}>{row.label}</td>
+                  {items.map(p => (
+                    <td key={p.id} style={{ padding: "12px 16px", fontSize: 13, color: "var(--text-secondary)", borderLeft: "1px solid rgba(255,255,255,0.05)", verticalAlign: "top", lineHeight: 1.5 }}>
+                      {row.render(p)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Main App ─────────────────────────────────────────── */
+function App() {
+  const [mainTab, setMainTab] = useState("reference");
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [selectedPeptide, setSelectedPeptide] = useState(null);
+  const [compareIds, setCompareIds] = useState([]);
+  const [showCompare, setShowCompare] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const [tweaks, setTweak] = useTweaks(/*EDITMODE-BEGIN*/{
+    "cardColumns": "3",
+    "showHalfLife": true,
+    "accentGold": "#c8992a",
+    "showTagline": true
+  }/*EDITMODE-END*/);
+
+  const filtered = PEPTIDES.filter(p => {
+    const matchesCat = activeFilter === "all" || p.categories.includes(activeFilter);
+    const matchesSearch = search === "" ||
+      p.name.toLowerCase().includes(search.toLowerCase()) ||
+      p.fullName.toLowerCase().includes(search.toLowerCase()) ||
+      p.categories.some(c => CAT_META[c]?.label.toLowerCase().includes(search.toLowerCase()));
+    return matchesCat && matchesSearch;
+  });
+
+  const colCount = parseInt(tweaks.cardColumns) || 3;
+
+  const toggleCompare = (id) => {
+    setCompareIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : prev.length < 4 ? [...prev, id] : prev);
+  };
+
+  return (
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      {/* Hero header */}
+      <header style={{
+        background: "linear-gradient(180deg, #0a1525 0%, var(--navy-950) 100%)",
+        borderBottom: "1px solid rgba(200,153,42,0.12)",
+        padding: "clamp(28px, 6vw, 48px) clamp(16px, 4vw, 32px) 0",
+        textAlign: "center",
+        position: "relative",
+        overflow: "hidden",
+      }}>
+        {/* Background grid */}
+        <div style={{
+          position: "absolute", inset: 0,
+          backgroundImage: `linear-gradient(rgba(200,153,42,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(200,153,42,0.03) 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+          pointerEvents: "none",
+        }} />
+        <div style={{ position: "relative" }}>
+          <div style={{
+            display: "inline-block",
+            fontFamily: "'DM Mono', monospace",
+            fontSize: 10,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "var(--gold-500)",
+            background: "rgba(200,153,42,0.08)",
+            border: "1px solid rgba(200,153,42,0.18)",
+            padding: "5px 14px",
+            borderRadius: 4,
+            marginBottom: 16,
+          }}>
+            Clinical Peptide Reference — v2026.1
+          </div>
+          <h1 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "clamp(30px, 5vw, 50px)",
+            fontWeight: 600,
+            color: "var(--white)",
+            letterSpacing: "-0.01em",
+            lineHeight: 1.1,
+            marginBottom: 10,
+          }}>
+            Peptide Reference Guide
+          </h1>
+          <p style={{
+            fontSize: "clamp(13px, 2.5vw, 15px)",
+            color: "var(--text-secondary)",
+            maxWidth: 520,
+            margin: "0 auto 20px",
+            lineHeight: 1.6,
+            padding: "0 8px",
+          }}>
+            Comprehensive dosing, mechanisms, and protocols for therapeutic peptides.
+          </p>
+
+          {/* Main nav tabs */}
+          <div style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 24, flexWrap: "wrap", padding: "0 16px" }}>
+            {[
+              { id: "reference", label: "Peptide Reference" },
+              { id: "stacking",  label: "Stacking & Timing" },
+            ].map(tab => (
+              <button key={tab.id} onClick={() => setMainTab(tab.id)} style={{
+                padding: "9px 22px",
+                borderRadius: 99,
+                border: mainTab === tab.id
+                  ? "1.5px solid rgba(200,153,42,0.5)"
+                  : "1.5px solid rgba(255,255,255,0.1)",
+                background: mainTab === tab.id
+                  ? "rgba(200,153,42,0.14)"
+                  : "rgba(255,255,255,0.03)",
+                color: mainTab === tab.id ? "var(--gold-300)" : "var(--text-secondary)",
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 14,
+                fontWeight: mainTab === tab.id ? 600 : 400,
+                cursor: "pointer",
+                transition: "all 0.18s",
+              }}>{tab.label}</button>
+            ))}
+          </div>
+
+          {/* Search & filters — only on reference tab */}
+          {mainTab === "reference" && (<>
+            <div style={{ maxWidth: 400, margin: "0 auto 24px", position: "relative", padding: "0 16px" }}>
+              <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", fontSize: 14, pointerEvents: "none" }}>⌕</div>
+              <input
+                type="text"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder="Search peptides..."
+                style={{
+                  width: "100%",
+                  padding: "10px 14px 10px 36px",
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: 10,
+                  color: "var(--text-primary)",
+                  fontSize: 14,
+                  fontFamily: "'DM Sans', sans-serif",
+                  outline: "none",
+                }}
+              />
+            </div>
+            <div style={{ padding: "0 0 32px" }}>
+              <FilterBar active={activeFilter} onChange={setActiveFilter} />
+            </div>
+          </>)}
+
+          {/* Stacking tab — just bottom padding */}
+          {mainTab === "stacking" && <div style={{ paddingBottom: 32 }} />}
+        </div>
+      </header>
+
+      {/* Cancer disclaimer banner */}
+      {mainTab === "reference" && <CancerDisclaimerBanner />}
+
+      {/* Reference grid */}
+      {mainTab === "reference" && (
+        <main style={{ flex: 1, padding: "36px max(24px, calc((100vw - 1200px) / 2))" }}>
+          {filtered.length === 0 ? (
+            <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "60px 0", fontSize: 15 }}>
+              No peptides found.
+            </div>
+          ) : (
+            <div className="card-grid" style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))`,
+              gap: 20,
+            }}>
+              {filtered.map(p => (
+                <PeptideCard
+                  key={p.id}
+                  peptide={p}
+                  onClick={() => setSelectedPeptide(p)}
+                />
+              ))}
+            </div>
+          )}
+          <div style={{ marginTop: 48, textAlign: "center", fontSize: 11.5, color: "var(--text-muted)", lineHeight: 1.8, maxWidth: 640, margin: "48px auto 0" }}>
+            ⚠️ For educational and informational purposes only. Consult a licensed healthcare provider before using any peptide.
+            All dosages are general references and not individualized medical advice.
+          </div>
+        </main>
+      )}
+
+      {/* Stacking guide */}
+      {mainTab === "stacking" && (
+        <main style={{ flex: 1 }}>
+          <StackingGuide />
+          <div style={{ textAlign: "center", fontSize: 11.5, color: "var(--text-muted)", lineHeight: 1.8, maxWidth: 640, margin: "0 auto 48px", padding: "0 24px" }}>
+            ⚠️ For educational and informational purposes only. Consult a licensed healthcare provider before using any peptide.
+          </div>
+        </main>
+      )}
+
+      {/* Modals */}
+      {selectedPeptide && (
+        <PeptideModal peptide={selectedPeptide} onClose={() => setSelectedPeptide(null)} />
+      )}
+      {showCompare && (
+        <CompareModal peptideIds={compareIds} peptides={PEPTIDES} onClose={() => setShowCompare(false)} />
+      )}
+
+      {/* Compare tray */}
+      <ComparisonTray
+        selected={compareIds}
+        peptides={PEPTIDES}
+        onRemove={toggleCompare}
+        onClear={() => setCompareIds([])}
+        onCompare={() => setShowCompare(true)}
+      />
+
+      {/* Tweaks panel */}
+      <TweaksPanel>
+        <TweakSection label="Layout" />
+        <TweakRadio
+          label="Columns"
+          value={tweaks.cardColumns}
+          options={["2", "3", "4"]}
+          onChange={v => setTweak("cardColumns", v)}
+        />
+        <TweakSection label="Display" />
+        <TweakToggle
+          label="Show taglines"
+          value={tweaks.showTagline}
+          onChange={v => setTweak("showTagline", v)}
+        />
+        <TweakToggle
+          label="Show half-life"
+          value={tweaks.showHalfLife}
+          onChange={v => setTweak("showHalfLife", v)}
+        />
+        <TweakSection label="Colors" />
+        <TweakColor
+          label="Gold accent"
+          value={tweaks.accentGold}
+          onChange={v => setTweak("accentGold", v)}
+        />
+      </TweaksPanel>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+<style>
+  @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+
+  input::placeholder { color: var(--text-muted); }
+  input:focus { border-color: rgba(200,153,42,0.3) !important; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--navy-900); }
+  ::-webkit-scrollbar-thumb { background: var(--navy-600); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--navy-400); }
+</style>
+</body>
+</html>
