@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Peptide Reference Guide</title>
+<style>
+/* ── Reset & Base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #050c1a;
+  color: #e8edf7;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: inherit; cursor: pointer; }
+ul { list-style: none; }
+
+/* ── Design Tokens ────────────────────────────────────── */
+:root {
+  --navy-950: #050c1a;
+  --navy-900: #0a1628;
+  --navy-800: #0f2044;
+  --navy-700: #152a5a;
+  --gold-500: #c8992a;
+  --gold-400: #d4aa45;
+  --gold-300: #e0c060;
+  --gold-200: #ecda9e;
+  --white: #ffffff;
+  --text-primary: #e8edf7;
+  --text-secondary: #9eb3d0;
+  --text-muted: #5a7499;
+  --cat-metabolic: #1ecfb0;
+  --cat-fat: #e05a3a;
+  --cat-muscle: #3a9ee0;
+  --cat-recovery: #3abf8e;
+  --cat-aging: #b06be0;
+  --cat-cognitive: #e0b43a;
+  --cat-sleep: #7b8cde;
+  --warn-gh: #e07830;
+  --warn-cell: #d04060;
+  --warn-angio: #c05080;
+  --radius-card: 14px;
+  --shadow-card: 0 4px 32px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-hover: 0 8px 48px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* ── Google Fonts import ──────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&display=swap');
+
+/* ── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy-900); }
+::-webkit-scrollbar-thumb { background: #1d3872; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a5fa0; }
+
+/* ── Layout ──────────────────────────────────────────── */
+.page { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ── Header ──────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(180deg, #0a1525 0%, #050c1a 100%);
+  border-bottom: 1px solid rgba(200,153,42,0.12);
+  padding: clamp(28px,6vw,48px) clamp(16px,4vw,32px) 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(200,153,42,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,153,42,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.header-inner { position: relative; }
+.version-badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-500);
+  background: rgba(200,153,42,0.08);
+  border: 1px solid rgba(200,153,42,0.18);
+  padding: 5px 14px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.site-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px,5vw,50px);
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.site-subtitle {
+  font-size: clamp(13px,2.5vw,15px);
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+  padding: 0 8px;
+}
+
+/* ── Main Nav ────────────────────────────────────────── */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  padding: 0 16px;
+}
+.main-nav button {
+  padding: 9px 22px;
+  border-radius: 99px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.main-nav button.active {
+  border-color: rgba(200,153,42,0.5);
+  background: rgba(200,153,42,0.14);
+  color: var(--gold-300);
+  font-weight: 600;
+}
+
+/* ── Search ──────────────────────────────────────────── */
+.search-wrap {
+  max-width: 400px;
+  margin: 0 auto 20px;
+  position: relative;
+  padding: 0 16px;
+}
+.search-icon {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 16px;
+  pointer-events: none;
+}
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.18s;
+}
+.search-input::placeholder { color: var(--text-muted); }
+.search-input:focus { border-color: rgba(200,153,42,0.3); }
+
+/* ── Filter Bar ──────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 0 32px;
+}
+.filter-btn {
+  padding: 9px 18px;
+  border-radius: 99px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 400;
+  transition: all 0.18s;
+  white-space: nowrap;
+  min-height: 40px;
+}
+.filter-btn.active {
+  font-weight: 600;
+}
+
+/* ── Cancer Disclaimer ───────────────────────────────── */
+.cancer-disclaimer {
+  background: linear-gradient(135deg, rgba(180,30,40,0.18), rgba(100,10,20,0.25));
+  border: 1px solid rgba(220,60,70,0.35);
+  border-left: 4px solid #d03545;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.cancer-disclaimer.hidden { display: none; }
+.disclaimer-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+.disclaimer-body { flex: 1; }
+.disclaimer-title {
+  font-weight: 700;
+  font-size: 13px;
+  color: #f08090;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.disclaimer-text { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 8px; }
+.disclaimer-text strong { color: var(--text-primary); }
+.disclaimer-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.disclaimer-note { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.disclaimer-note strong { color: var(--text-secondary); }
+.dismiss-btn {
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-muted);
+  border-radius: 7px;
+  width: 28px; height: 28px;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.dismiss-btn:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+
+/* ── Card Grid ───────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  padding: 36px max(16px, calc((100vw - 1200px) / 2));
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 20px;
+}
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 60px 0;
+  font-size: 15px;
+}
+
+/* ── Peptide Card ────────────────────────────────────── */
+.peptide-card {
+  background: linear-gradient(160deg, #0c1c35 0%, #080f1e 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: all 0.22s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.peptide-card:hover {
+  background: linear-gradient(160deg, #0d1e38 0%, #0a1628 100%);
+  border-color: rgba(200,153,42,0.35);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+.card-accent-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0.5;
+  transition: opacity 0.22s;
+}
+.peptide-card:hover .card-accent-line { opacity: 1; }
+.card-body { padding: clamp(16px,4vw,22px) clamp(14px,4vw,22px) 18px; }
+.card-header { margin-bottom: 10px; }
+.card-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.1;
+}
+.card-badges { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; flex-shrink: 0; max-width: 140px; }
+.card-fullname {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.card-tagline { font-size: 12.5px; color: var(--text-secondary); font-style: italic; line-height: 1.4; }
+.card-divider { height: 1px; background: rgba(255,255,255,0.05); margin: 14px 0; }
+.benefits-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: 8px;
+}
+.benefits-list { display: flex; flex-direction: column; gap: 5px; }
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.benefit-dot { font-size: 8px; flex-shrink: 0; margin-top: 3px; }
+.dosage-strip {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 14px;
+}
+.dosage-strip-divider { width: 1px; align-self: stretch; background: rgba(255,255,255,0.07); }
+.ds-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+.ds-value { font-size: 12px; color: var(--text-primary); }
+.ds-value.mono { font-family: 'DM Mono', monospace; }
+.card-footer {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 10px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.card-footer-left { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.half-life { font-size: 11px; color: var(--text-muted); }
+.view-details {
+  font-size: 11px;
+  color: var(--gold-400);
+  font-weight: 500;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.peptide-card:hover .view-details { opacity: 1; }
+
+/* ── Category Badge ──────────────────────────────────── */
+.cat-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.cat-badge.small { font-size: 10px; padding: 2px 8px; }
+
+/* ── Warning Badge ───────────────────────────────────── */
+.warn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  position: relative;
+  cursor: help;
+}
+.warn-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0c1d38;
+  border-radius: 8px;
+  padding: 10px 13px;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  width: 240px;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  pointer-events: none;
+  text-transform: none;
+  font-weight: 400;
+  letter-spacing: 0;
+  white-space: normal;
+}
+.warn-badge:hover .warn-tooltip { display: block; }
+.warn-tooltip-title { font-weight: 700; display: block; margin-bottom: 4px; }
+
+/* ── Modal ───────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(5,12,26,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  animation: fadeIn 0.18s ease;
+}
+.modal-overlay.hidden { display: none; }
+.modal-box {
+  background: linear-gradient(160deg, #0e1e38 0%, #0a1525 100%);
+  border: 1px solid rgba(200,153,42,0.2);
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+  width: 100%;
+  max-width: 680px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+.modal-header {
+  background: linear-gradient(160deg, #0e1e38 0%, #0a1525 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: clamp(18px,4vw,24px) clamp(16px,4vw,28px) 20px;
+  position: relative;
+}
+.modal-close {
+  position: absolute; top: 18px; right: 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  width: 32px; height: 32px;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+  z-index: 2;
+}
+.modal-close:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+.modal-cats { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px,4vw,30px);
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.modal-fullname {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.modal-tagline { margin-top: 8px; font-size: 14px; color: var(--text-secondary); font-style: italic; }
+.modal-warning-box {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(180,30,40,0.12);
+  border: 1px solid rgba(220,60,70,0.25);
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: #f08090;
+  line-height: 1.7;
+}
+.modal-warning-box strong { display: block; margin-bottom: 4px; }
+.modal-body {
+  padding: clamp(16px,4vw,24px) clamp(16px,4vw,28px) clamp(20px,4vw,28px);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+}
+.benefits-modal-list { display: flex; flex-direction: column; gap: 8px; }
+.benefit-modal-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--text-secondary); line-height: 1.5;
+}
+.benefit-modal-dot { font-size: 9px; flex-shrink: 0; margin-top: 4px; }
+.dosage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.dosage-cell {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.dosage-cell-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.dosage-cell-value { font-size: 13px; color: var(--text-primary); }
+.dosage-cell-value.mono { font-family: 'DM Mono', monospace; }
+.mechanism-text { font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; }
+.side-effects-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.side-effect-tag {
+  padding: 5px 12px;
+  background: rgba(255,80,50,0.08);
+  border: 1px solid rgba(255,80,50,0.18);
+  border-radius: 6px;
+  font-size: 12.5px;
+  color: #e08070;
+}
+.half-storage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.half-life-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 16px;
+  color: var(--gold-300);
+}
+.storage-text { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ── Footer Note ─────────────────────────────────────── */
+.footer-note {
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 640px;
+  margin: 48px auto 0;
+  padding: 0 16px;
+}
+
+/* ── Stacking Guide ──────────────────────────────────── */
+.stacking-section {
+  padding: 0 max(16px, calc((100vw - 1100px) / 2)) 60px;
+}
+.stacking-section.hidden { display: none; }
+.section-header {
+  text-align: center;
+  margin-bottom: 36px;
+  padding-top: 12px;
+}
+.section-eyebrow {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-500);
+  background: rgba(200,153,42,0.08);
+  border: 1px solid rgba(200,153,42,0.18);
+  padding: 5px 14px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+.section-title-lg {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px,3vw,36px);
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.section-subtitle { font-size: 14px; color: var(--text-secondary); max-width: 480px; margin: 0 auto; }
+.sub-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 32px;
+}
+.sub-tab {
+  padding: 8px 20px;
+  border-radius: 99px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 400;
+  transition: all 0.18s;
+}
+.sub-tab.active {
+  border-color: rgba(200,153,42,0.5);
+  background: rgba(200,153,42,0.12);
+  color: var(--gold-300);
+  font-weight: 600;
+}
+.stacks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+.stack-card {
+  background: linear-gradient(160deg, #0c1c35 0%, #080f1e 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.stack-card-inner { padding: 20px 22px 22px; }
+.stack-accent { height: 2px; }
+.stack-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.stack-icon-wrap {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.stack-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 600;
+  color: var(--white); line-height: 1.2; margin-bottom: 4px;
+}
+.stack-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+.stack-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.stack-chip {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'DM Mono', monospace;
+  color: var(--text-primary);
+}
+.stack-notes {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ── Timing View ─────────────────────────────────────── */
+.timing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.timing-col {
+  background: linear-gradient(160deg, #0c1c35 0%, #080f1e 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.timing-col-header {
+  padding: 18px 22px 14px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.timing-icon { font-size: 20px; }
+.timing-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 600; color: var(--white);
+}
+.timing-sublabel { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.timing-items { padding: 14px 0; }
+.timing-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.timing-item:last-child { border-bottom: none; }
+.timing-dot-wrap { flex-shrink: 0; margin-top: 7px; }
+.timing-dot { width: 6px; height: 6px; border-radius: 50%; display: block; }
+.timing-name {
+  font-size: 13px; font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 2px;
+}
+.timing-reason { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.timing-cat-wrap { display: flex; flex-wrap: wrap; gap: 4px; flex-shrink: 0; margin-left: auto; padding-left: 8px; }
+
+/* ── Compare Tray ────────────────────────────────────── */
+.compare-tray {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  background: linear-gradient(135deg, #0f2044, #0a1628);
+  border: 1px solid rgba(200,153,42,0.3);
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  max-width: calc(100vw - 24px);
+  flex-wrap: wrap;
+  transition: opacity 0.2s;
+}
+.compare-tray.hidden { display: none; }
+.compare-tray-label { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+.compare-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.compare-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 4px 10px 4px 12px;
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.compare-chip-remove {
+  background: none; border: none;
+  color: var(--text-muted); font-size: 12px;
+  line-height: 1; padding: 0;
+}
+.compare-chip-remove:hover { color: var(--text-primary); }
+.compare-go-btn {
+  padding: 7px 16px;
+  background: var(--gold-500);
+  border: none;
+  border-radius: 8px;
+  color: var(--navy-900);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.compare-go-btn:hover { background: var(--gold-400); }
+.compare-clear-btn {
+  background: none; border: none;
+  color: var(--text-muted); font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ── Compare Modal ───────────────────────────────────── */
+.compare-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(5,12,26,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  animation: fadeIn 0.18s ease;
+}
+.compare-modal-overlay.hidden { display: none; }
+.compare-modal-box {
+  background: linear-gradient(160deg, #0e1e38 0%, #0a1525 100%);
+  border: 1px solid rgba(200,153,42,0.2);
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  overflow: auto;
+}
+.compare-modal-header {
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: linear-gradient(160deg, #0e1e38 0%, #0a1525 100%);
+  z-index: 2;
+}
+.compare-modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--white);
+}
+.compare-table-wrap { padding: 0 28px 28px; overflow-x: auto; }
+.compare-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 20px;
+  min-width: 480px;
+}
+.compare-table th {
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  vertical-align: bottom;
+}
+.compare-table th:first-child {
+  width: 120px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 10px 12px;
+}
+.compare-table th:not(:first-child) { border-left: 1px solid rgba(255,255,255,0.05); }
+.compare-th-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: var(--white);
+  font-weight: 600;
+}
+.compare-th-bar { height: 2px; width: 40px; margin-top: 6px; border-radius: 2px; }
+.compare-table td {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.compare-table td:first-child {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+  padding: 12px 12px;
+}
+.compare-table td:not(:first-child) { border-left: 1px solid rgba(255,255,255,0.05); }
+.compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.compare-halflife { font-family: 'DM Mono', monospace; color: var(--gold-300); }
+
+/* ── Animations ──────────────────────────────────────── */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── Mobile ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .filter-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0 16px 28px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-btn { flex-shrink: 0; }
+  .card-grid { grid-template-columns: 1fr; }
+  .dosage-grid { grid-template-columns: 1fr; }
+  .half-storage-grid { grid-template-columns: 1fr; }
+  .stacks-grid { grid-template-columns: 1fr; }
+  .timing-grid { grid-template-columns: 1fr; }
+  .compare-modal-box { max-height: 100vh; border-radius: 14px; }
+  .modal-body { padding: 16px; }
+  .modal-header { padding: 18px 16px 16px; }
+  .timing-item { padding: 10px 16px; }
+  .timing-cat-wrap { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-grid"></div>
+    <div class="header-inner">
+      <div class="version-badge">Clinical Peptide Reference — v2026.1</div>
+      <h1 class="site-title">Peptide Reference Guide</h1>
+      <p class="site-subtitle">Comprehensive dosing, mechanisms, and protocols for therapeutic peptides.</p>
+      <nav class="main-nav">
+        <button class="active" data-tab="reference">Peptide Reference</button>
+        <button data-tab="stacking">Stacking &amp; Timing</button>
+      </nav>
+      <div class="search-wrap" id="searchWrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search peptides..." />
+      </div>
+      <div class="filter-bar" id="filterBar"></div>
+    </div>
+  </header>
+
+  <!-- Reference View -->
+  <main class="main-content" id="referenceView">
+    <div class="card-grid" id="cardGrid"></div>
+    <p class="footer-note">⚠️ For educational and informational purposes only. Consult a licensed healthcare provider before using any peptide. All dosages are general references and not individualized medical advice.</p>
+
+    <!-- Cancer Disclaimer (bottom) -->
+    <div class="cancer-disclaimer" id="cancerDisclaimer" style="margin: 32px 0 0;">
+      <span class="disclaimer-icon">⚠</span>
+      <div class="disclaimer-body">
+        <div class="disclaimer-title">Important Safety Warning — Active Cancer &amp; Malignancy</div>
+        <p class="disclaimer-text">
+          Several peptides in this guide stimulate <strong>growth hormone (GH)</strong>, promote
+          <strong>cell proliferation</strong>, or induce <strong>angiogenesis</strong> (new blood vessel formation).
+          These mechanisms, while beneficial for healthy individuals, may
+          <strong>accelerate tumor growth or support tumor vascularization</strong> in individuals with active or recent cancer.
+        </p>
+        <div class="disclaimer-tags" id="disclaimerTags"></div>
+        <p class="disclaimer-note">Affected peptides are marked with colored warning badges.
+          <strong>If you have or have had any cancer, pre-malignant condition, or hormone-sensitive tumour — consult a qualified oncologist before using any peptide on this list.</strong>
+          This includes but is not limited to: breast, prostate, colorectal, thyroid, and pituitary cancers.
+        </p>
+      </div>
+      <button class="dismiss-btn" id="dismissDisclaimer" title="Dismiss this session">✕</button>
+    </div>
+  </main>
+
+  <!-- Stacking Guide -->
+  <div class="stacking-section hidden" id="stackingView">
+    <div class="section-header">
+      <div class="section-eyebrow">Protocol Guide</div>
+      <h2 class="section-title-lg">Stacking &amp; Timing</h2>
+      <p class="section-subtitle">Evidence-based peptide combinations and optimal administration windows.</p>
+    </div>
+    <div class="sub-tabs">
+      <button class="sub-tab active" data-subtab="stacks">Recommended Stacks</button>
+      <button class="sub-tab" data-subtab="timing">Morning / Evening Split</button>
+    </div>
+    <div id="stacksView">
+      <div class="stacks-grid" id="stacksGrid"></div>
+    </div>
+    <div id="timingView" style="display:none;">
+      <div class="timing-grid" id="timingGrid"></div>
+    </div>
+    <p class="footer-note" style="margin-top:40px;">⚠️ For educational and informational purposes only. Consult a licensed healthcare provider before using any peptide.</p>
+  </div>
+
+  <!-- Peptide Detail Modal -->
+  <div class="modal-overlay hidden" id="peptideModal">
+    <div class="modal-box" id="modalBox"></div>
+  </div>
+
+  <!-- Compare Tray -->
+  <div class="compare-tray hidden" id="compareTray">
+    <span class="compare-tray-label">Compare:</span>
+    <div class="compare-chips" id="compareChips"></div>
+    <button class="compare-go-btn hidden" id="compareGoBtn">Compare</button>
+    <button class="compare-clear-btn" id="compareClearBtn">Clear</button>
+  </div>
+
+  <!-- Compare Modal -->
+  <div class="compare-modal-overlay hidden" id="compareModal">
+    <div class="compare-modal-box">
+      <div class="compare-modal-header">
+        <span class="compare-modal-title">Side-by-Side Comparison</span>
+        <button class="modal-close" id="compareModalClose">✕</button>
+      </div>
+      <div class="compare-table-wrap">
+        <table class="compare-table" id="compareTable"></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════ */
+const PEPTIDES = [
+  { id:"bpc157", name:"BPC-157", fullName:"Body Protection Compound 157", categories:["recovery"], tagline:"The Wolverine peptide for tissue repair",
+    benefits:["Accelerates tendon & ligament healing","Reduces inflammation systemically","Supports gut lining integrity","Promotes angiogenesis (new blood vessels)"],
+    dosage:{typical:"200–400 mcg/day",frequency:"Once or twice daily",method:"Subcutaneous or IM injection",cycle:"4–6 weeks on, 2–4 weeks off"},
+    sideEffects:["Nausea (rare)","Dizziness on injection","Mild fatigue initially"],
+    mechanism:"Upregulates growth hormone receptors; modulates NO system; stabilizes gut barrier via SOD2 pathway.",
+    halfLife:"~4 hours", storage:"Lyophilized: room temp. Reconstituted: 2–8°C, use within 30 days.", warnings:["angiogenesis"] },
+  { id:"tb500", name:"TB-500", fullName:"Thymosin Beta-4", categories:["recovery","muscle"], tagline:"Systemic healing & regeneration",
+    benefits:["Dramatically accelerates wound healing","Reduces fibrous scar tissue","Promotes satellite cell activation","Anti-inflammatory at injury sites"],
+    dosage:{typical:"2–2.5 mg twice/week",frequency:"2× weekly (loading), then 1× weekly",method:"Subcutaneous injection",cycle:"4–6 weeks loading, monthly maintenance"},
+    sideEffects:["Fatigue after injection","Temporary headache","Slight nausea"],
+    mechanism:"Binds G-actin to regulate actin polymerization; activates AKT signaling for cell migration and proliferation.",
+    halfLife:"~30–40 minutes (active fragment longer)", storage:"Lyophilized: 2–8°C. Reconstituted: 2–8°C, use within 30 days.", warnings:["angiogenesis"] },
+  { id:"cjc1295", name:"CJC-1295", fullName:"CJC-1295 with DAC", categories:["muscle","fat"], tagline:"Long-acting GH release amplifier",
+    benefits:["Sustained GH pulse elevation","Increased IGF-1 production","Enhanced lean muscle accretion","Accelerated fat oxidation"],
+    dosage:{typical:"1–2 mg/week",frequency:"Once weekly (with DAC)",method:"Subcutaneous injection",cycle:"8–12 weeks, 4–6 weeks off"},
+    sideEffects:["Water retention","Injection site redness","Tingling/numbness","Fatigue"],
+    mechanism:"Modified GHRH analogue with Drug Affinity Complex — binds serum albumin for extended half-life, providing sustained GHRH receptor stimulation.",
+    halfLife:"~6–8 days (with DAC)", storage:"Lyophilized: room temp. Reconstituted: 2–8°C, 30 days.", warnings:["gh_stimulating"] },
+  { id:"ipamorelin", name:"Ipamorelin", fullName:"Ipamorelin", categories:["muscle","fat","aging"], tagline:"Clean GH secretagogue, minimal sides",
+    benefits:["Selective GH release — no cortisol spike","Improved body composition","Enhanced sleep quality","Mild anti-aging systemic effects"],
+    dosage:{typical:"200–300 mcg/dose",frequency:"2–3× daily or pre-sleep",method:"Subcutaneous injection",cycle:"8–12 weeks on, 4 weeks off"},
+    sideEffects:["Mild headache","Flushing","Water retention at higher doses"],
+    mechanism:"Ghrelin receptor agonist (GHS-R1a); selectively stimulates pituitary GH release without affecting cortisol, prolactin, or ACTH.",
+    halfLife:"~2 hours", storage:"Lyophilized: room temp. Reconstituted: 2–8°C, 30 days.", warnings:["gh_stimulating"] },
+  { id:"sermorelin", name:"Sermorelin", fullName:"Sermorelin Acetate", categories:["aging","muscle"], tagline:"Natural GH axis restoration",
+    benefits:["Restores youthful GH pulsatility","Improves sleep architecture","Increases bone mineral density","Enhanced skin quality & collagen"],
+    dosage:{typical:"0.2–0.3 mg/night",frequency:"Once daily (pre-sleep)",method:"Subcutaneous injection",cycle:"3–6 months continuous"},
+    sideEffects:["Injection site reaction","Flushing","Dizziness (rare)","Headache"],
+    mechanism:"Synthetic analogue of endogenous GHRH (first 29 amino acids); directly stimulates anterior pituitary somatotrophs in a physiologic feedback loop.",
+    halfLife:"~10–20 minutes", storage:"Lyophilized: 2–8°C. Reconstituted: 2–8°C, 2 weeks.", warnings:["gh_stimulating"] },
+  { id:"pt141", name:"PT-141", fullName:"Bremelanotide", categories:["cognitive"], tagline:"Central melanocortin sexual agonist",
+    benefits:["Enhances sexual arousal centrally","Effective in both men and women","Works independent of vascular mechanism","Rapid onset (45–90 min)"],
+    dosage:{typical:"0.5–2 mg per use",frequency:"As needed, max 1× per 72 hrs",method:"Subcutaneous injection or nasal spray",cycle:"As needed (not for chronic daily use)"},
+    sideEffects:["Nausea (most common)","Flushing","Transient BP increase","Headache"],
+    mechanism:"Melanocortin-4 (MC4R) and MC3R receptor agonist in the CNS; activates dopaminergic pathways in the hypothalamus to modulate sexual function.",
+    halfLife:"~2.7 hours", storage:"Lyophilized: room temp. Reconstituted: 2–8°C, 30 days." },
+  { id:"ghkcu", name:"GHK-Cu", fullName:"Copper Peptide GHK-Cu", categories:["aging","recovery"], tagline:"Regenerative copper tripeptide complex",
+    benefits:["Stimulates collagen & elastin synthesis","Activates tissue remodeling","Potent antioxidant & anti-inflammatory","Nerve regeneration support"],
+    dosage:{typical:"1–2 mg/day (injectable) or topical",frequency:"Once daily injection or 2× daily topical",method:"Subcutaneous or topical",cycle:"8–12 weeks, can be longer topically"},
+    sideEffects:["Minimal systemic sides","Topical: mild redness initially","Excess copper at very high doses"],
+    mechanism:"Copper chelate that upregulates matrix metalloproteinases and TGF-β; promotes stem cell activation and switches macrophages toward M2 (healing) phenotype.",
+    halfLife:"~30–60 minutes (injectable)", storage:"Lyophilized: 2–8°C. Reconstituted: 2–8°C, away from light.", warnings:["proliferative","angiogenesis"] },
+  { id:"epithalon", name:"Epithalon", fullName:"Epithalamin / Epitalon", categories:["aging"], tagline:"Telomere-lengthening tetrapeptide",
+    benefits:["Activates telomerase enzyme","Restores pineal melatonin output","Normalizes circadian rhythm","Potent antioxidant; DNA repair support"],
+    dosage:{typical:"5–10 mg/day",frequency:"Once daily (10–20 day course)",method:"Subcutaneous injection",cycle:"10–20 day course, 1–2× per year"},
+    sideEffects:["Generally very well tolerated","Mild fatigue initially","Transient headache (rare)"],
+    mechanism:"Tetrapeptide Ala-Glu-Asp-Gly; induces telomerase (TERT) via epigenetic modulation of chromatin; regulates hypothalamic-pituitary axis and pineal gland.",
+    halfLife:"~30–60 minutes", storage:"Lyophilized: 2–8°C, protected from light.", warnings:["proliferative"] },
+  { id:"motsc", name:"MOTS-c", fullName:"Mitochondrial Open Reading Frame of the 12S rRNA-c", categories:["metabolic","aging","fat"], tagline:"Mitochondrial peptide — the longevity regulator",
+    benefits:["Enhances mitochondrial biogenesis & function","Improves insulin sensitivity and glucose uptake","Activates AMPK — cellular energy master switch","Extends healthspan; potent anti-aging effects"],
+    dosage:{typical:"5–10 mg/week",frequency:"2–3× weekly or daily low-dose",method:"Subcutaneous injection",cycle:"8–12 weeks, 4–6 weeks off"},
+    sideEffects:["Generally well tolerated","Mild fatigue initially","Injection site redness"],
+    mechanism:"Endogenous mitochondrial-encoded peptide that translocates to the nucleus under metabolic stress; activates AMPK and regulates the folate cycle and de novo purine synthesis, improving metabolic flexibility and stress resistance.",
+    halfLife:"~Unknown (short, endogenous)", storage:"Lyophilized: 2–8°C, protected from light. Reconstituted: 2–8°C, 14 days.", warnings:["proliferative"] },
+  { id:"wolverine", name:"Wolverine Stack", fullName:"BPC-157 + TB-500 Combination Protocol", categories:["recovery","muscle"], tagline:"The ultimate injury repair & regeneration stack",
+    benefits:["Synergistic acceleration of tissue repair","BPC-157 targets local injury; TB-500 acts systemically","Reduces recovery time from injuries by 40–60%","Promotes tendon, ligament, muscle & nerve healing"],
+    dosage:{typical:"BPC-157: 250 mcg + TB-500: 2 mg",frequency:"BPC-157: 2×/day; TB-500: 2×/week",method:"Subcutaneous injection (near injury site for BPC)",cycle:"4–6 weeks loading; reassess monthly"},
+    sideEffects:["Nausea (BPC component)","Fatigue post-injection (TB-500)","Mild headache","Dizziness"],
+    mechanism:"Complementary dual-pathway healing: BPC-157 upregulates GH receptors and modulates nitric oxide for local vascular repair; TB-500 regulates actin polymerization for systemic cell migration and proliferation.",
+    halfLife:"BPC-157: ~4h / TB-500: ~30–40 min", storage:"Store each peptide separately. Reconstituted: 2–8°C, 30 days.", warnings:["angiogenesis"] },
+  { id:"dsip", name:"DSIP", fullName:"Delta Sleep-Inducing Peptide", categories:["sleep","cognitive"], tagline:"Endogenous sleep regulator & stress modulator",
+    benefits:["Promotes slow-wave (delta) sleep onset","Reduces cortisol and normalizes stress response","Improves sleep architecture and continuity","Mild anxiolytic and pain-modulating effects"],
+    dosage:{typical:"100–500 mcg/dose",frequency:"Once nightly, 30–60 min before bed",method:"Subcutaneous injection",cycle:"5–10 day course; repeat as needed"},
+    sideEffects:["Vivid dreams","Morning grogginess (dose-dependent)","Mild headache","Rare: nausea"],
+    mechanism:"Nonapeptide that modulates limbic and hypothalamic activity; reduces ACTH and cortisol secretion; upregulates delta-wave EEG activity by acting on opioid and somatostatin receptors in sleep-regulating brain regions.",
+    halfLife:"~30–60 minutes", storage:"Lyophilized: 2–8°C. Reconstituted: 2–8°C, 14 days." },
+  { id:"selank", name:"Selank", fullName:"Selank (TP-7)", categories:["sleep","cognitive"], tagline:"Anxiolytic nootropic for calm focus & deep sleep",
+    benefits:["Reduces anxiety without sedation or dependence","Improves sleep quality and reduces sleep latency","Enhances memory consolidation and learning","Stabilizes BDNF and serotonin signaling"],
+    dosage:{typical:"250–500 mcg/dose",frequency:"1–2× daily (morning + evening)",method:"Nasal spray or subcutaneous injection",cycle:"10–14 days on, 5–7 days off"},
+    sideEffects:["Mild sedation","Transient fatigue","Nasal irritation (spray)","Vivid dreams"],
+    mechanism:"Synthetic heptapeptide analogue of tuftsin; modulates GABAergic, serotonergic, and dopaminergic systems; inhibits enkephalin-degrading enzymes to prolong endogenous opioid tone; upregulates BDNF expression in hippocampus.",
+    halfLife:"~1–2 minutes (native); nasal/subQ extends effect to hours", storage:"Lyophilized: room temp. Nasal solution: 2–8°C. Use within 30 days." },
+  { id:"semax", name:"Semax", fullName:"Semax (ACTH 4-7 Pro-Gly-Pro)", categories:["sleep","cognitive"], tagline:"Neuroprotective peptide for cognition & recovery",
+    benefits:["Potent BDNF upregulation for neuroplasticity","Improves focus, memory, and mental clarity","Reduces neuroinflammation and oxidative stress","Supports recovery from stroke and brain injury"],
+    dosage:{typical:"300–600 mcg/day",frequency:"Once or twice daily",method:"Nasal spray (primary) or subcutaneous",cycle:"10–14 days on, 5–7 days off"},
+    sideEffects:["Mild irritability at high doses","Nasal irritation (spray)","Transient anxiety","Overstimulation"],
+    mechanism:"ACTH(4-10) analogue that activates melanocortin receptors (MC4R/MC5R); markedly elevates BDNF, NGF, and VEGF in hippocampus; modulates dopamine and serotonin release; inhibits prolyl endopeptidase to protect neuropeptide signaling.",
+    halfLife:"~7 minutes (nasal absorption extends effect)", storage:"Lyophilized/nasal solution: 2–8°C. Protect from light." },
+  { id:"tesamorelin", name:"Tesamorelin", fullName:"Tesamorelin Acetate (Egrifta)", categories:["fat","muscle"], tagline:"FDA-approved GHRH for visceral fat reduction",
+    benefits:["Significantly reduces visceral adipose tissue","Increases IGF-1 without supraphysiologic GH","Improves lipid profile & waist circumference","Preserves lean body mass"],
+    dosage:{typical:"1–2 mg/day",frequency:"Once daily",method:"Subcutaneous injection (abdomen)",cycle:"3–6 months; can continue if responding"},
+    sideEffects:["Injection site reactions","Fluid retention/edema","Arthralgia","Glucose dysregulation at high doses"],
+    mechanism:"Stabilized analogue of endogenous GHRH(1-44); binds GHRH receptors on pituitary somatotrophs to stimulate pulsatile GH secretion and downstream IGF-1, selectively mobilizing visceral fat via lipolysis.",
+    halfLife:"~26–38 minutes", storage:"Lyophilized: 2–8°C. Reconstituted: 2–8°C, use within 24 hours.", warnings:["gh_stimulating"] },
+  { id:"semaglutide", name:"Semaglutide", fullName:"Semaglutide (GLP-1 RA)", categories:["metabolic","fat"], tagline:"Gold-standard GLP-1 agonist for weight loss",
+    benefits:["Potent appetite suppression via CNS GLP-1R","Significant sustained weight loss (15–20%+)","Improves glycemic control & insulin sensitivity","Cardiovascular & cardiorenal protective effects"],
+    dosage:{typical:"0.25 mg → up to 2.4 mg/week",frequency:"Once weekly",method:"Subcutaneous injection (pen)",cycle:"Titrate over 16–20 weeks; ongoing use"},
+    sideEffects:["Nausea/vomiting (common, transient)","Diarrhea/constipation","Gastroparesis risk","Injection site reactions","Rare: pancreatitis"],
+    mechanism:"Long-acting GLP-1 receptor agonist (C18 fatty diacid chain for albumin binding); activates hypothalamic GLP-1Rs to suppress appetite, slows gastric emptying, and potentiates glucose-dependent insulin secretion.",
+    halfLife:"~1 week", storage:"Pen: 2–8°C (unused); up to 28 days at room temp once in use." },
+  { id:"tirzepatide", name:"Tirzepatide", fullName:"Tirzepatide (GLP-1 / GIP Dual Agonist)", categories:["metabolic","fat"], tagline:"Dual GLP-1/GIP agonist — superior weight outcomes",
+    benefits:["Greater weight loss than GLP-1 monotherapy (20–22%+)","Dual incretin synergy for enhanced fat loss","Superior HbA1c reduction vs semaglutide","Improved triglycerides and liver fat markers"],
+    dosage:{typical:"2.5 mg → up to 15 mg/week",frequency:"Once weekly",method:"Subcutaneous injection (pen)",cycle:"Titrate over 20 weeks; ongoing use"},
+    sideEffects:["Nausea/vomiting","Diarrhea","Constipation","Decreased appetite","Rare: acute pancreatitis"],
+    mechanism:"Unimolecular GLP-1R and GIPR co-agonist; GIP component enhances adipocyte lipolysis and reduces GLP-1 nausea, while GLP-1 component suppresses appetite — synergistic incretin effect exceeds either alone.",
+    halfLife:"~5 days", storage:"Pen: 2–8°C (unused); up to 21 days at room temp once in use." },
+  { id:"retatrutide", name:"Retatrutide", fullName:"Retatrutide (GLP-1 / GIP / Glucagon Triple Agonist)", categories:["metabolic","fat"], tagline:"Triple agonist — next-gen metabolic powerhouse",
+    benefits:["Unprecedented weight loss in trials (24%+ at 48 weeks)","Triple receptor synergy: GLP-1R + GIPR + GcgR","Glucagon component drives hepatic fat oxidation","Favorable effects on lipids, BP, and liver steatosis"],
+    dosage:{typical:"1 mg → up to 12 mg/week (Phase 3 doses)",frequency:"Once weekly",method:"Subcutaneous injection",cycle:"Titrate over 24 weeks; long-term use studied"},
+    sideEffects:["Nausea/vomiting (most common)","Diarrhea","Decreased appetite","Transient HR increase (glucagon effect)","Injection site reactions"],
+    mechanism:"Single peptide with balanced agonism at GLP-1R (appetite suppression), GIPR (incretin amplification, adipocyte lipolysis), and glucagon receptor (hepatic glucose output, thermogenesis, fat oxidation) — three complementary metabolic axes.",
+    halfLife:"~6 days", storage:"2–8°C. Clinical formulation; not widely commercially available as of 2026." },
+  { id:"glp2", name:"GLP-2 / Teduglutide", fullName:"Glucagon-Like Peptide-2 / Teduglutide", categories:["metabolic","recovery"], tagline:"Gut-trophic hormone for intestinal repair",
+    benefits:["Stimulates intestinal epithelial proliferation","Reduces intestinal permeability ('leaky gut')","Increases nutrient absorption capacity","Anti-inflammatory in GI mucosa"],
+    dosage:{typical:"0.05 mg/kg/day (Teduglutide)",frequency:"Once daily",method:"Subcutaneous injection",cycle:"Ongoing (chronic intestinal conditions) or 4–8 weeks (gut health)"},
+    sideEffects:["Abdominal pain/distension","Nausea","Injection site reactions","Potential colorectal polyp growth (monitor)"],
+    mechanism:"GLP-2 receptor agonist; activates enteric neurons and subepithelial myofibroblasts to increase crypt depth, villus height, and mucosal blood flow; stabilized analogue (Teduglutide) resists DPP-4 degradation.",
+    halfLife:"~7 min (native GLP-2); ~2 hours (Teduglutide)", storage:"Lyophilized/prefilled: 2–8°C. Reconstituted: use immediately." }
+];
+
+const CATEGORIES = [
+  { id:"all",       label:"All Peptides", color:null },
+  { id:"metabolic", label:"Metabolic",    color:"#1ecfb0" },
+  { id:"fat",       label:"Fat Loss",     color:"#e05a3a" },
+  { id:"muscle",    label:"Muscle",       color:"#3a9ee0" },
+  { id:"recovery",  label:"Recovery",     color:"#3abf8e" },
+  { id:"aging",     label:"Anti-Aging",   color:"#b06be0" },
+  { id:"cognitive", label:"Cognitive",    color:"#e0b43a" },
+  { id:"sleep",     label:"Sleep",        color:"#7b8cde" },
+];
+
+const CAT_META = {
+  metabolic: { label:"Metabolic",  color:"#1ecfb0" },
+  fat:       { label:"Fat Loss",   color:"#e05a3a" },
+  muscle:    { label:"Muscle",     color:"#3a9ee0" },
+  recovery:  { label:"Recovery",   color:"#3abf8e" },
+  aging:     { label:"Anti-Aging", color:"#b06be0" },
+  cognitive: { label:"Cognitive",  color:"#e0b43a" },
+  sleep:     { label:"Sleep",      color:"#7b8cde" },
+};
+
+const WARNING_META = {
+  gh_stimulating: { label:"GH-Stimulating", short:"GH", color:"#e07830",
+    tip:"Stimulates growth hormone or IGF-1 production. Contraindicated in active malignancy — GH can accelerate tumor cell proliferation. Also use with caution in diabetic retinopathy, active intracranial hypertension, and pediatric patients with open epiphyses." },
+  proliferative:  { label:"Cell-Proliferative", short:"CELL", color:"#d04060",
+    tip:"Promotes cell growth, regeneration, or telomerase activation. Avoid with active cancer, pre-malignant conditions, or a strong family history of hormone-sensitive cancers until cleared by an oncologist." },
+  angiogenesis:   { label:"Pro-Angiogenic", short:"ANGIO", color:"#c05080",
+    tip:"Promotes new blood vessel formation (angiogenesis). While beneficial for healing, this mechanism may support tumor vascularization. Contraindicated in active or recent malignancy." },
+};
+
+const STACKS = [
+  { id:"performance", name:"Performance & Body Recomp", icon:"◈", color:"#3a9ee0",
+    description:"Maximize muscle gain, fat loss, and recovery simultaneously.",
+    peptides:["CJC-1295","Ipamorelin","BPC-157","TB-500"],
+    notes:"CJC+Ipamorelin is the cornerstone GH stack — take pre-sleep. Add BPC/TB-500 if training hard or managing injuries." },
+  { id:"wolverine", name:"Wolverine Healing Stack", icon:"⬡", color:"#3abf8e",
+    description:"Maximum tissue repair — injury recovery, post-surgery, or chronic pain.",
+    peptides:["BPC-157","TB-500","GHK-Cu"],
+    notes:"BPC-157 locally near the injury site; TB-500 systemically. GHK-Cu accelerates collagen remodeling. The gold standard for recovery." },
+  { id:"longevity", name:"Longevity & Anti-Aging", icon:"◇", color:"#b06be0",
+    description:"Target telomere length, cellular regeneration, and hormonal optimization.",
+    peptides:["Epithalon","GHK-Cu","Sermorelin","MOTS-c"],
+    notes:"Run Epithalon as a 2-week course 1–2× per year. MOTS-c year-round for metabolic health. GHK-Cu topical daily." },
+  { id:"metabolic", name:"Metabolic & Weight Loss", icon:"◉", color:"#1ecfb0",
+    description:"Aggressive fat loss with metabolic optimization and muscle preservation.",
+    peptides:["Semaglutide","Tesamorelin","Ipamorelin","MOTS-c"],
+    notes:"Semaglutide or Tirzepatide as backbone. Tesamorelin specifically targets visceral fat. Ipamorelin preserves muscle during a cut." },
+  { id:"cognitive", name:"Cognitive & Neuro Stack", icon:"◎", color:"#e0b43a",
+    description:"Focus, neuroplasticity, anxiety reduction, and mental resilience.",
+    peptides:["Semax","Selank","DSIP"],
+    notes:"Semax AM for focus and BDNF boost; Selank PM for anxiety reduction; DSIP at bedtime for deep sleep and memory consolidation." },
+  { id:"sleep", name:"Sleep Optimization", icon:"◑", color:"#7b8cde",
+    description:"Improve sleep onset, depth, and overnight recovery.",
+    peptides:["DSIP","Selank","Epithalon","Ipamorelin"],
+    notes:"Layer DSIP + Selank for deep sleep induction. Ipamorelin pre-sleep maximizes overnight GH pulse. Epithalon normalizes circadian melatonin." },
+];
+
+const TIMING = {
+  morning: [
+    { name:"Semax",       reason:"BDNF boost & cognitive priming for the day",           cats:["cognitive"] },
+    { name:"MOTS-c",      reason:"AMPK activation enhances metabolic efficiency",         cats:["metabolic"] },
+    { name:"Tesamorelin", reason:"Daily dosing; AM injection per clinical protocol",      cats:["fat"] },
+    { name:"Semaglutide", reason:"Weekly — take AM to manage GI side effects in day",    cats:["metabolic"] },
+    { name:"Tirzepatide", reason:"Weekly — AM dosing; monitor appetite through day",      cats:["metabolic"] },
+    { name:"PT-141",      reason:"45–90 min onset; take 1–2 hrs before intended use",    cats:["cognitive"] },
+    { name:"BPC-157",     reason:"First daily dose AM; near injury site if applicable",  cats:["recovery"] },
+    { name:"TB-500",      reason:"2× weekly AM; systemic distribution throughout day",   cats:["recovery"] },
+    { name:"GHK-Cu",      reason:"AM injection or topical application to skin",           cats:["aging"] },
+  ],
+  evening: [
+    { name:"CJC-1295",    reason:"Pre-sleep to align with natural GH nocturnal pulse",    cats:["muscle"] },
+    { name:"Ipamorelin",  reason:"Pre-sleep GH secretagogue — potentiates overnight pulse", cats:["muscle"] },
+    { name:"Sermorelin",  reason:"Must be taken at night — only works during sleep",      cats:["aging"] },
+    { name:"DSIP",        reason:"30–60 min before bed; induces delta sleep",             cats:["sleep"] },
+    { name:"Selank",      reason:"Evening dose for anxiety wind-down and sleep quality",  cats:["sleep"] },
+    { name:"Epithalon",   reason:"PM dose supports melatonin restoration and recovery",   cats:["aging"] },
+    { name:"BPC-157",     reason:"Second daily dose PM; continuous tissue repair coverage", cats:["recovery"] },
+    { name:"Retatrutide", reason:"Weekly — PM may reduce daytime GI effects",             cats:["metabolic"] },
+    { name:"GLP-2",       reason:"Once daily; evening aligns with intestinal repair cycle", cats:["metabolic"] },
+  ],
+};
+
+/* ═══════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════ */
+let state = {
+  activeTab: "reference",
+  activeFilter: "all",
+  search: "",
+  activeSubTab: "stacks",
+  compareIds: [],
+  openPeptide: null,
+};
+
+/* ═══════════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════════ */
+function hex2rgba(hex, a) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+function catBadgeHTML(catId, small) {
+  const m = CAT_META[catId]; if (!m) return '';
+  const pad = small ? '2px 8px' : '3px 10px', fs = small ? '10px' : '11px';
+  return `<span class="cat-badge${small?' small':''}" style="color:${m.color};background:${hex2rgba(m.color,0.12)};border:1px solid ${hex2rgba(m.color,0.3)};padding:${pad};font-size:${fs};">${m.label}</span>`;
+}
+
+function warnBadgeHTML(key) {
+  const w = WARNING_META[key]; if (!w) return '';
+  return `<span class="warn-badge" style="color:${w.color};background:${hex2rgba(w.color,0.12)};border:1px solid ${hex2rgba(w.color,0.3)};">
+    ⚠ ${w.short}
+    <span class="warn-tooltip" style="border-color:${hex2rgba(w.color,0.3)};">
+      <strong class="warn-tooltip-title" style="color:${w.color};">⚠ ${w.label}</strong>${w.tip}
+    </span>
+  </span>`;
+}
+
+function sectionHTML(title, accent, content) {
+  return `<div>
+    <div class="section-title" style="color:${accent};border-bottom:1px solid ${hex2rgba(accent,0.2)};">${title}</div>
+    ${content}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER: FILTER BAR
+═══════════════════════════════════════════════════════ */
+function renderFilterBar() {
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = CATEGORIES.map(cat => {
+    const isActive = state.activeFilter === cat.id;
+    const color = cat.color || '#d4aa45';
+    const style = isActive
+      ? `color:${color};border-color:${hex2rgba(color,0.5)};background:${hex2rgba(color,0.15)};font-weight:600;`
+      : '';
+    return `<button class="filter-btn${isActive?' active':''}" data-cat="${cat.id}" style="${style}">${cat.label}</button>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER: CARD GRID
+═══════════════════════════════════════════════════════ */
+function renderCards() {
+  const grid = document.getElementById('cardGrid');
+  const filtered = PEPTIDES.filter(p => {
+    const catOk = state.activeFilter === 'all' || p.categories.includes(state.activeFilter);
+    const s = state.search.toLowerCase();
+    const searchOk = !s || p.name.toLowerCase().includes(s) || p.fullName.toLowerCase().includes(s)
+      || p.categories.some(c => CAT_META[c]?.label.toLowerCase().includes(s));
+    return catOk && searchOk;
+  });
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty-state">No peptides found.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => {
+    const primaryCat = p.categories[0];
+    const accent = CAT_META[primaryCat]?.color || '#d4aa45';
+    const warningBadges = (p.warnings || []).map(warnBadgeHTML).join('');
+    const catBadges = p.categories.map(c => catBadgeHTML(c, true)).join('');
+    const benefitItems = p.benefits.slice(0,3).map(b =>
+      `<li class="benefit-item"><span class="benefit-dot" style="color:${accent};">◆</span>${b}</li>`
+    ).join('');
+
+    return `<div class="peptide-card" data-id="${p.id}">
+      <div class="card-accent-line" style="background:linear-gradient(90deg,${accent},transparent);"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-row">
+            <h2 class="card-title">${p.name}</h2>
+            <div class="card-badges">${catBadges}</div>
+          </div>
+          <div class="card-fullname">${p.fullName}</div>
+          <div class="card-tagline">${p.tagline}</div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="benefits-label">Key Benefits</div>
+        <ul class="benefits-list">${benefitItems}</ul>
+        <div class="dosage-strip">
+          <div>
+            <div class="ds-label">Dosage</div>
+            <div class="ds-value mono">${p.dosage.typical}</div>
+          </div>
+          <div class="dosage-strip-divider"></div>
+          <div>
+            <div class="ds-label">Method</div>
+            <div class="ds-value">${p.dosage.method.replace('Subcutaneous ','SubQ ')}</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-footer-left">
+          <span class="half-life">t½ ${p.halfLife}</span>
+          ${warningBadges}
+        </div>
+        <span class="view-details">View details →</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER: MODAL
+═══════════════════════════════════════════════════════ */
+function renderModal(p) {
+  const primaryCat = p.categories[0];
+  const accent = CAT_META[primaryCat]?.color || '#d4aa45';
+  const catBadges = p.categories.map(c => catBadgeHTML(c, false)).join('');
+
+  const warningBlock = (p.warnings && p.warnings.length) ? `
+    <div class="modal-warning-box">
+      <strong>⚠ Contraindication Warning</strong>
+      ${p.warnings.includes('gh_stimulating') ? '<div>• <strong>GH-stimulating:</strong> May accelerate tumour growth via IGF-1 axis. Contraindicated in active malignancy.</div>' : ''}
+      ${p.warnings.includes('proliferative') ? '<div>• <strong>Pro-proliferative:</strong> Activates cell growth pathways. Avoid with active or recent cancer.</div>' : ''}
+      ${p.warnings.includes('angiogenesis') ? '<div>• <strong>Pro-angiogenic:</strong> Promotes new blood vessel formation — may support tumour vascularisation.</div>' : ''}
+    </div>` : '';
+
+  const benefitItems = p.benefits.map(b =>
+    `<li class="benefit-modal-item"><span class="benefit-modal-dot" style="color:${accent};">◆</span>${b}</li>`
+  ).join('');
+
+  const dosageCells = [
+    { label:'Typical Dose', value:p.dosage.typical, mono:true },
+    { label:'Frequency',    value:p.dosage.frequency },
+    { label:'Method',       value:p.dosage.method },
+    { label:'Cycle',        value:p.dosage.cycle },
+  ].map(d =>
+    `<div class="dosage-cell">
+      <div class="dosage-cell-label">${d.label}</div>
+      <div class="dosage-cell-value${d.mono?' mono':''}">${d.value}</div>
+    </div>`
+  ).join('');
+
+  const sideEffectTags = p.sideEffects.map(s => `<span class="side-effect-tag">${s}</span>`).join('');
+
+  const box = document.getElementById('modalBox');
+  box.innerHTML = `
+    <div class="modal-header">
+      <button class="modal-close" id="modalCloseBtn">✕</button>
+      <div class="modal-cats">${catBadges}</div>
+      <h2 class="modal-title">${p.name}</h2>
+      <div class="modal-fullname">${p.fullName}</div>
+      <div class="modal-tagline">${p.tagline}</div>
+      ${warningBlock}
+    </div>
+    <div class="modal-body">
+      ${sectionHTML('Key Benefits', accent, `<ul class="benefits-modal-list">${benefitItems}</ul>`)}
+      ${sectionHTML('Dosage Protocol', accent, `<div class="dosage-grid">${dosageCells}</div>`)}
+      ${sectionHTML('Mechanism of Action', accent, `<p class="mechanism-text">${p.mechanism}</p>`)}
+      ${sectionHTML('Side Effects', accent, `<div class="side-effects-list">${sideEffectTags}</div>`)}
+      <div class="half-storage-grid">
+        ${sectionHTML('Half-Life', accent, `<div class="half-life-value">${p.halfLife}</div>`)}
+        ${sectionHTML('Storage', accent, `<p class="storage-text">${p.storage}</p>`)}
+      </div>
+    </div>`;
+
+  document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+}
+
+function openModal(p) {
+  state.openPeptide = p;
+  renderModal(p);
+  document.getElementById('peptideModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  state.openPeptide = null;
+  document.getElementById('peptideModal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER: STACKING GUIDE
+═══════════════════════════════════════════════════════ */
+function renderStacks() {
+  const grid = document.getElementById('stacksGrid');
+  grid.innerHTML = STACKS.map(s => {
+    const chips = s.peptides.map(name =>
+      `<span class="stack-chip" style="background:${hex2rgba(s.color,0.10)};border:1px solid ${hex2rgba(s.color,0.25)};">${name}</span>`
+    ).join('');
+    return `<div class="stack-card">
+      <div class="stack-accent" style="background:linear-gradient(90deg,${s.color},transparent);"></div>
+      <div class="stack-card-inner">
+        <div class="stack-header">
+          <div class="stack-icon-wrap" style="background:${hex2rgba(s.color,0.15)};border:1px solid ${hex2rgba(s.color,0.3)};color:${s.color};">${s.icon}</div>
+          <div>
+            <div class="stack-name">${s.name}</div>
+            <div class="stack-desc">${s.description}</div>
+          </div>
+        </div>
+        <div class="stack-chips">${chips}</div>
+        <div class="stack-notes">${s.notes}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderTiming() {
+  const grid = document.getElementById('timingGrid');
+  const colData = [
+    { key:'morning', label:'Morning', sublabel:'Upon waking — fasted or with breakfast', icon:'☀', color:'#d4aa45', bg:'rgba(200,153,42,0.06)', border:'rgba(200,153,42,0.15)' },
+    { key:'evening', label:'Evening / Pre-Sleep', sublabel:'30–60 min before bed unless noted', icon:'◗', color:'#7b8cde', bg:'rgba(123,140,222,0.06)', border:'rgba(123,140,222,0.15)' },
+  ];
+  grid.innerHTML = colData.map(col => {
+    const items = TIMING[col.key].map(item => {
+      const catBadges = item.cats.map(c => catBadgeHTML(c, true)).join('');
+      const dotColor = item.cats[0] ? CAT_META[item.cats[0]]?.color || col.color : col.color;
+      return `<div class="timing-item">
+        <div class="timing-dot-wrap"><span class="timing-dot" style="background:${dotColor};"></span></div>
+        <div style="flex:1;min-width:0;">
+          <div class="timing-name">${item.name}</div>
+          <div class="timing-reason">${item.reason}</div>
+        </div>
+        <div class="timing-cat-wrap">${catBadges}</div>
+      </div>`;
+    }).join('');
+    return `<div class="timing-col">
+      <div class="timing-col-header" style="background:${col.bg};border-bottom-color:${col.border};">
+        <span class="timing-icon" style="color:${col.color};">${col.icon}</span>
+        <div>
+          <div class="timing-label">${col.label}</div>
+          <div class="timing-sublabel">${col.sublabel}</div>
+        </div>
+      </div>
+      <div class="timing-items">${items}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER: COMPARE
+═══════════════════════════════════════════════════════ */
+function renderCompareTray() {
+  const tray = document.getElementById('compareTray');
+  const chips = document.getElementById('compareChips');
+  const goBtn = document.getElementById('compareGoBtn');
+
+  if (!state.compareIds.length) { tray.classList.add('hidden'); return; }
+  tray.classList.remove('hidden');
+
+  chips.innerHTML = state.compareIds.map(id => {
+    const p = PEPTIDES.find(x => x.id === id);
+    return `<div class="compare-chip">
+      <span>${p.name}</span>
+      <button class="compare-chip-remove" data-remove="${id}">✕</button>
+    </div>`;
+  }).join('');
+
+  if (state.compareIds.length >= 2) {
+    goBtn.classList.remove('hidden');
+    goBtn.textContent = `Compare ${state.compareIds.length}`;
+  } else {
+    goBtn.classList.add('hidden');
+  }
+}
+
+function openCompareModal() {
+  const items = state.compareIds.map(id => PEPTIDES.find(p => p.id === id)).filter(Boolean);
+  const rows = [
+    { label:'Categories', render: p => p.categories.map(c => catBadgeHTML(c,true)).join(' ') },
+    { label:'Tagline',    render: p => `<em>${p.tagline}</em>` },
+    { label:'Typical Dose', render: p => `<span style="font-family:'DM Mono',monospace;font-size:12px;">${p.dosage.typical}</span>` },
+    { label:'Frequency',  render: p => p.dosage.frequency },
+    { label:'Method',     render: p => p.dosage.method },
+    { label:'Cycle',      render: p => p.dosage.cycle },
+    { label:'Half-Life',  render: p => `<span class="compare-halflife">${p.halfLife}</span>` },
+    { label:'Side Effects', render: p => p.sideEffects.slice(0,2).join(', ') },
+  ];
+
+  const theadCells = ['<th></th>'].concat(items.map(p => {
+    const accent = CAT_META[p.categories[0]]?.color || '#d4aa45';
+    return `<th><div class="compare-th-name">${p.name}</div><div class="compare-th-bar" style="background:${accent};"></div></th>`;
+  })).join('');
+
+  const tbodyRows = rows.map((row, i) => {
+    const cells = items.map(p => `<td>${row.render(p)}</td>`).join('');
+    return `<tr><td>${row.label}</td>${cells}</tr>`;
+  }).join('');
+
+  document.getElementById('compareTable').innerHTML =
+    `<thead><tr>${theadCells}</tr></thead><tbody>${tbodyRows}</tbody>`;
+  document.getElementById('compareModal').classList.remove('hidden');
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER: DISCLAIMER TAGS
+═══════════════════════════════════════════════════════ */
+function renderDisclaimerTags() {
+  const container = document.getElementById('disclaimerTags');
+  container.innerHTML = Object.entries(WARNING_META).map(([, w]) =>
+    `<span style="padding:3px 10px;border-radius:5px;font-size:11px;font-weight:600;
+      background:${hex2rgba(w.color,0.15)};border:1px solid ${hex2rgba(w.color,0.35)};
+      color:${w.color};letter-spacing:0.05em;text-transform:uppercase;">${w.label}</span>`
+  ).join('');
+}
+
+/* ═══════════════════════════════════════════════════════
+   TAB SWITCHING
+═══════════════════════════════════════════════════════ */
+function setMainTab(tab) {
+  state.activeTab = tab;
+  document.querySelectorAll('.main-nav button').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  const isRef = tab === 'reference';
+  document.getElementById('referenceView').style.display = isRef ? '' : 'none';
+  document.getElementById('stackingView').classList.toggle('hidden', !isRef ? true : false);
+  document.getElementById('searchWrap').style.display = isRef ? '' : 'none';
+  document.getElementById('filterBar').style.display = isRef ? '' : 'none';
+
+  if (tab === 'stacking') {
+    document.getElementById('stackingView').classList.remove('hidden');
+    document.getElementById('referenceView').style.display = 'none';
+  }
+}
+
+function setSubTab(tab) {
+  state.activeSubTab = tab;
+  document.querySelectorAll('.sub-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.subtab === tab);
+  });
+  document.getElementById('stacksView').style.display = tab === 'stacks' ? '' : 'none';
+  document.getElementById('timingView').style.display = tab === 'timing' ? '' : 'none';
+}
+
+/* ═══════════════════════════════════════════════════════
+   FULL RENDER
+═══════════════════════════════════════════════════════ */
+function render() {
+  renderFilterBar();
+  renderCards();
+  renderCompareTray();
+}
+
+/* ═══════════════════════════════════════════════════════
+   EVENT LISTENERS
+═══════════════════════════════════════════════════════ */
+// Main nav
+document.querySelectorAll('.main-nav button').forEach(btn => {
+  btn.addEventListener('click', () => setMainTab(btn.dataset.tab));
+});
+
+// Sub tabs
+document.querySelectorAll('.sub-tab').forEach(btn => {
+  btn.addEventListener('click', () => setSubTab(btn.dataset.subtab));
+});
+
+// Filter bar (delegated)
+document.getElementById('filterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  state.activeFilter = btn.dataset.cat;
+  render();
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', e => {
+  state.search = e.target.value;
+  renderCards();
+});
+
+// Card click (delegated)
+document.getElementById('cardGrid').addEventListener('click', e => {
+  const card = e.target.closest('.peptide-card');
+  if (!card) return;
+  const p = PEPTIDES.find(x => x.id === card.dataset.id);
+  if (p) openModal(p);
+});
+
+// Modal overlay click
+document.getElementById('peptideModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('peptideModal')) closeModal();
+});
+
+// Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal();
+    document.getElementById('compareModal').classList.add('hidden');
+  }
+});
+
+// Compare tray
+document.getElementById('compareGoBtn').addEventListener('click', openCompareModal);
+document.getElementById('compareClearBtn').addEventListener('click', () => {
+  state.compareIds = [];
+  renderCompareTray();
+});
+document.getElementById('compareChips').addEventListener('click', e => {
+  const btn = e.target.closest('.compare-chip-remove');
+  if (!btn) return;
+  state.compareIds = state.compareIds.filter(id => id !== btn.dataset.remove);
+  renderCompareTray();
+});
+
+// Compare modal close
+document.getElementById('compareModalClose').addEventListener('click', () => {
+  document.getElementById('compareModal').classList.add('hidden');
+});
+document.getElementById('compareModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('compareModal'))
+    document.getElementById('compareModal').classList.add('hidden');
+});
+
+// Long-press / right-click cards to add to compare
+document.getElementById('cardGrid').addEventListener('contextmenu', e => {
+  e.preventDefault();
+  const card = e.target.closest('.peptide-card');
+  if (!card) return;
+  const id = card.dataset.id;
+  if (state.compareIds.includes(id)) {
+    state.compareIds = state.compareIds.filter(x => x !== id);
+  } else if (state.compareIds.length < 4) {
+    state.compareIds.push(id);
+  }
+  renderCompareTray();
+});
+
+// Dismiss disclaimer
+document.getElementById('dismissDisclaimer').addEventListener('click', () => {
+  try { sessionStorage.setItem('cancer_disclaimer_dismissed','1'); } catch {}
+  document.getElementById('cancerDisclaimer').classList.add('hidden');
+});
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════ */
+// Restore disclaimer dismissal
+try {
+  if (sessionStorage.getItem('cancer_disclaimer_dismissed') === '1')
+    document.getElementById('cancerDisclaimer').classList.add('hidden');
+} catch {}
+
+renderDisclaimerTags();
+renderStacks();
+renderTiming();
+render();
+</script>
+</body>
+</html>
